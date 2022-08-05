@@ -1,44 +1,25 @@
 from setuptools import setup, find_packages
 
-from my_pip_package import __version__
-
-extra_math = [
-    'returns-decorator',
-]
-
-extra_bin = [
-    *extra_math,
-]
-
-extra_test = [
-    *extra_math,
-    'pytest>=4',
-    'pytest-cov>=2',
-]
-
-extra_dev = [
-    *extra_test,
-]
+from csc import __version__
 
 setup(
-    name='my_pip_package',
+    name='csc_tools',
     version=__version__,
 
-    url='https://github.com/MichaelKim0407/tutorial-pip-package',
-    author='Michael Kim',
-    author_email='mkim0407@gmail.com',
+    url='https://github.com/ATB-UQ/csc-validator',
+    author='Sharif Nada',
+    author_email='s.nada@uq.edu.au',
 
     packages=find_packages(),
 
-    extras_require={
-    'math': extra_math,
-    'dev': extra_dev,
-    'bin': extra_bin,
-    },
+    install_requires=[
+    'pyyaml',
+    ],
 
     entry_points={
     'console_scripts': [
-        'add=my_pip_package.math:cmd_add',
+        #'csc-validate=csc_tools.validate:cmd_validate',
+        'csc=csc.csc:main',
         ],
     },
 )
