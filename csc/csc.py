@@ -1,22 +1,26 @@
 import sys
 from . import config
+import argparse
+from csc import __version__
 
-
-def help():
-    print("This is the help menu")   
-
-def main():
-
-    command = sys.argv[1]
-    assert command in ['help', 'config'], \
-        "Invalid command."
-    args = sys.argv[2:]
-    run_command(command, *args)
+def main(command_line=None):
+    parser = argparse.ArgumentParser(
+        prog='csc',
+        description="Australian Computational and Simulation Commons command line tools (csc-tools)."
+        )
     
+    parser.add_argument(
+        '-v', '--version', 
+        action='version',
+        version='%(prog)s version {version}'.format(version=__version__)
+        )    
+    
+    subparsers = parser.add_subparsers(dest='command')
 
-def run_command(command, *args):
-    if command == 'help':
-        help()
-        
-    elif command == 'config':
-        config.run_config(*args)
+    config_parser = subparsers.add_parser('config', help="List or modify configuration options")
+    config_parser.add_argument(
+        'list',
+        help="List current configuration options"
+    )
+
+    args = parser.parse_args(command_line)
