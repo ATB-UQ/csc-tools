@@ -19,7 +19,7 @@ setup(
     entry_points={
     'console_scripts': [
         #'csc-validate=csc_tools.validate:cmd_validate',
-        'csc=csc.csc:main',
+        'csct=csc.csc:main',
         ],
     },
 )

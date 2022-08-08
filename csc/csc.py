@@ -3,24 +3,55 @@ from . import config
 import argparse
 from csc import __version__
 
-def main(command_line=None):
-    parser = argparse.ArgumentParser(
-        prog='csc',
-        description="Australian Computational and Simulation Commons command line tools (csc-tools)."
+prog_name = 'csct'
+
+class main(object):
+    def __init__(self):
+        parser = argparse.ArgumentParser(
+            prog=prog_name,
+            usage="""%(prog)s <command> [<args>]
+
+Available commands:
+
+Configure csc-tools:
+    config      List or modify configuration options
+    init        Initialize a new csc-tools instance
+
+Create a new dataset directory tree:
+    clone       Clone the directory structure and metadata of a dataset into a new directory tree
+    create      Create an empty directory structure and initialize metadata
+""")        
+        parser.add_argument('command', choices=['config'], help=argparse.SUPPRESS)
+        parser.add_argument(
+            '-v', '--version', 
+            action='version',
+            version='%(prog)s version {version}'.format(version=__version__),
+            help="show %(prog)s version number and exit"
         )
-    
-    parser.add_argument(
-        '-v', '--version', 
-        action='version',
-        version='%(prog)s version {version}'.format(version=__version__)
-        )    
-    
-    subparsers = parser.add_subparsers(dest='command')
+        #call help by default if no argument supplied 
+        if len(sys.argv) <= 1:
+            sys.argv.append('--help')
+        #Read the first argument
+        args = parser.parse_args(sys.argv[1:2])
+        #use dispatch pattern to invoke method with same name of the argument
+        getattr(self, args.command)()
 
-    config_parser = subparsers.add_parser('config', help="List or modify configuration options")
-    config_parser.add_argument(
-        'list',
-        help="List current configuration options"
-    )
+    def config(self):
+        parser = argparse.ArgumentParser(
+            prog= prog_name + " config",
+            usage="""%(prog)s <command> [<args>]
 
-    args = parser.parse_args(command_line)
+Arguments:
+    list        List current configuration options
+    locate      Print location of configuration file
+"""
+            )
+        parser.add_argument('command', choices=['list','locate'], help=argparse.SUPPRESS)
+        parser.add_argument('arguments', nargs='*', metavar='<args>', help="config arguments")
+        #we are inside a subcommand, so ignore the first argument and read the rest
+        args = parser.parse_args(sys.argv[2:])
+
+        config.run_config(args.command, args.arguments)
+
+#if __name__ == '__main__':
+#    main()
