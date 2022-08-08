@@ -1,7 +1,7 @@
 import sys
 from . import config
 import argparse
-from csc import __version__
+from csct import __version__
 
 prog_name = 'csct'
 

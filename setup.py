@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-from csc import __version__
+from csct import __version__
 
 setup(
     name='csc_tools',
@@ -19,7 +19,7 @@ setup(
     entry_points={
     'console_scripts': [
         #'csc-validate=csc_tools.validate:cmd_validate',
-        'csct=csc.csc:main',
+        'csct=csct.csct:main',
         ],
     },
 )
