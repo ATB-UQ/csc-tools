@@ -6,7 +6,7 @@ setup(
     name='csc_tools',
     version=__version__,
 
-    url='https://github.com/ATB-UQ/csc-validator',
+    url='https://github.com/ATB-UQ/csc-tools',
     author='Sharif Nada',
     author_email='s.nada@uq.edu.au',
 
@@ -14,12 +14,12 @@ setup(
 
     install_requires=[
     'pyyaml',
+    'click',
     ],
 
     entry_points={
     'console_scripts': [
-        #'csc-validate=csc_tools.validate:cmd_validate',
-        'csct=csct.csct:main',
+        'csct=csct.csct:cli',
         ],
     },
 )
