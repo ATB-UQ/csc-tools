@@ -16,9 +16,9 @@ def find_directories(dirs):
     for dir in dirs:
         found_dirs.update(x[0] for x in os.walk(dir) \
             if (Path(x[0]) / 'atbrepo.yaml').is_file() or \
-                (Path(x[0]) / 'atbrepo.yml').is_file() #or \
-                #(Path(x[0]) / 'metadata.yaml').is_file() or \
-                #(Path(x[0]) / 'metadata.yml').is_file()
+                (Path(x[0]) / 'atbrepo.yml').is_file() ##or \
+                ##(Path(x[0]) / 'metadata.yaml').is_file() or \
+                ##(Path(x[0]) / 'metadata.yml').is_file()
                 )
     return found_dirs
 
