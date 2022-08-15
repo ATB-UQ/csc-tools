@@ -3,6 +3,7 @@ from pathlib import Path
 import click
 import yaml
 import cerberus
+import sys
 
 from .schema import *
 
@@ -14,24 +15,60 @@ fail_echo = click.style(f"{'FAILED': <8}", fg='red')
 def find_directories(dirs):
     found_dirs = set()
     for dir in dirs:
-        found_dirs.update(x[0] for x in os.walk(dir) \
+        found_dirs.update(x[0] for x in os.walk(Path(dir).resolve()) \
             if (Path(x[0]) / 'atbrepo.yaml').is_file() or \
-                (Path(x[0]) / 'atbrepo.yml').is_file() ##or \
-                ##(Path(x[0]) / 'metadata.yaml').is_file() or \
-                ##(Path(x[0]) / 'metadata.yml').is_file()
+                (Path(x[0]) / 'atbrepo.yml').is_file()
                 )
+    if found_dirs:
+        click.echo("Located datasets in the following paths:")
+        click.echo("\n".join(found_dirs))
+    else:
+        click.secho("No datasets could be located in the supplied paths:", fg='red')
+        click.echo("\n".join(dirs))
+        raise click.Abort()            
     return found_dirs
 
+@click.group()
+@click.pass_context
+def validate(ctx):
+    """
+    Validate dataset metadata, directory structure, and contents
+    """
+    if ctx.invoked_subcommand is None:
+        click.echo('I was invoked without subcommand. Defaulting to all')
+        
+        validate_all(ctx)
+           
+
+@validate.command('all')
+@click.argument('dirs', nargs=-1, type=click.Path(exists=True, file_okay=False))
+def validate_all(dirs):
+    """
+    Validate dataset metadata, directory structure, and contents.
+    """
+
+    found_dirs = find_directories(dirs)
+    validate_metadata(found_dirs)
+    validate_directory(found_dirs)
+
+@validate.command('metadata')
+@click.argument('dirs', nargs=-1, type=click.Path(exists=True, file_okay=False))
 def validate_metadata(dirs):
+    """
+    Validate dataset metadata.
+    """
+    
+    found_dirs = find_directories(dirs)
+
     click.echo("Validating metadata files in dataset paths...")
     
-    for dir in dirs:
-        dir_echo = click.style(dir)
+    for dir in found_dirs:
+        dir_echo = click.style(Path(dir).resolve())
 
-        if (Path(dir) / "atbrepo.yaml").exists() and (Path(dir) / "atbrepo.yml").exists():
+        if (Path(dir) / "atbrepo.yaml").exists() and (Path(dir) / "atbrepo.yml").exists(): #check for duplicate metadata files
             click.secho(f"{fail_echo}{dir_echo}")
             click.secho(f"Two metadata files found in path.  Only one metadata file per dataset is supported.", fg='red')
-            break
+            continue
         else:
             metadata_path = Path(dir) / "atbrepo.yaml" #check for this name first
             if not metadata_path.exists(): #if it's not there...
@@ -41,7 +78,8 @@ def validate_metadata(dirs):
                     metadata = yaml.safe_load(c) #if the metadata file is there, create the raw_config dictionary by loading the yaml file
             except: 
                 click.secho(f"{fail_echo}{dir_echo}")
-                raise Exception(f"Could not open metadata file in path: {metadata_path}") #throw exception if it's not there
+                click.secho(f"Could not open metadata file in path: {metadata_path}", fg='red')
+                sys.exit()
         
         validator = cerberus.Validator(get_metadata_schema())
         validator.validate(metadata)
@@ -52,10 +90,18 @@ def validate_metadata(dirs):
         else:
             click.secho(f"{pass_echo}{dir_echo}")
 
+@validate.command('directory')
+@click.argument('dirs', nargs=-1, type=click.Path(exists=True, file_okay=False))            
 def validate_directory(dirs):
+    """
+    Validate dataset directory structure.
+    """
+    
+    found_dirs = find_directories(dirs)
+
     click.echo("Validating directory structure in dataset paths...")
 
-    for dir in dirs:
+    for dir in found_dirs:
         dir_echo = click.style(dir)
         
         directory_structure = {}
@@ -78,22 +124,3 @@ def validate_directory(dirs):
             [click.secho(f"{key}: {value[0]}", fg='red') for key, value in validator.errors.items()]
         else:
             click.secho(f"{pass_echo}{dir_echo}")
-
-@click.command()
-@click.argument('dirs', nargs=-1, type=click.Path(exists=True, file_okay=False))
-def validate(dirs):
-    """
-    Validate the metadata, directory structure, and contents of datasets.
-    """
-    found_dirs = find_directories(dirs)
-
-    if found_dirs:
-        click.echo("Located datasets in the following paths:")
-        click.echo("\n".join(find_directories(dirs)))
-    else:
-        click.secho("No datasets could be located in the supplied paths:", fg='red')
-        click.echo("\n".join(dirs))
-        raise click.Abort()
-
-    validate_metadata(found_dirs)
-    validate_directory(found_dirs)    

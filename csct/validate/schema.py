@@ -64,10 +64,6 @@ def get_metadata_schema():
 
 class DirectoryValidator(cerberus.Validator):
 
-    def _check_with_not_duplicate(self, field, value):
-        if value == 'duplicate':
-            self._error(field, "only one metadata file must be present")
-
     def _check_with_file(self, field, value):
         if not value == 'file':
             self._error(field, "must be a file")
