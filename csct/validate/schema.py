@@ -2,6 +2,7 @@ import urllib.request
 import urllib.error
 import sys
 import json
+import cerberus
 
 def get_metadata_schema():
 
@@ -58,6 +59,73 @@ def get_metadata_schema():
             'required': True,
             'empty': False,
         },
-        #to-do: add tags, notes
     }
+    return schema
+
+class DirectoryValidator(cerberus.Validator):
+
+    def _check_with_not_duplicate(self, field, value):
+        if value == 'duplicate':
+            self._error(field, "only one metadata file must be present")
+
+    def _check_with_file(self, field, value):
+        if not value == 'file':
+            self._error(field, "must be a file")
+
+    def _check_with_directory(self, field, value):
+        if not value == 'directory':
+            self._error(field, "must be a directory")        
+
+def get_directory_schema():
+
+    schema = {
+        'control': {
+            'type': 'string',
+            'check_with': 'directory',
+            'required': True,
+            'empty': False,
+        },
+        'energy': {
+            'type': 'string',
+            'check_with': 'directory',
+            'required': True,
+            'empty': False,
+        },
+        'final-coordinates': {
+            'type': 'string',
+            'check_with': 'directory',
+            'required': True,
+            'empty': False,
+        },
+        'input-coordinates': {
+            'type': 'string',
+            'check_with': 'directory',
+            'required': True,
+            'empty': False,
+        },
+        'log': {
+            'type': 'string',
+            'check_with': 'directory',
+            'required': True,
+            'empty': False,
+        },
+        'reference-coordinates': {
+            'type': 'string',
+            'check_with': 'directory',
+            'required': True,
+            'empty': False,
+        },
+        'topology': {
+            'type': 'string',
+            'check_with': 'directory',
+            'required': True,
+            'empty': False,
+        },
+        'trajectory': {
+            'type': 'string',
+            'check_with': 'directory',
+            'required': True,
+            'empty': False,
+        },
+    }    
     return schema
