@@ -70,58 +70,118 @@ class DirectoryValidator(cerberus.Validator):
 
     def _check_with_directory(self, field, value):
         if not value == 'directory':
-            self._error(field, "must be a directory")        
+            self._error(field, "must be a directory")
 
-def get_directory_schema():
+    def _validate_at_least_one_file(self, other, field, value):
+        """
+        Test if at least one file is present.
+
+        The rule's arguments are validated against this schema:
+        {'type': 'string'}
+        """
+        if other not in self.document:
+            return False   
+        if len(value) == 0 and len(self.document[other]) == 0:
+            self._error(field, f"at least one {field} or {other} file is required")                 
+
+def get_directory_structure_schema():
 
     schema = {
         'control': {
             'type': 'string',
-            'check_with': 'directory',
             'required': True,
             'empty': False,
+            'check_with': 'directory',
         },
         'energy': {
             'type': 'string',
-            'check_with': 'directory',
             'required': True,
             'empty': False,
+            'check_with': 'directory',
         },
         'final-coordinates': {
             'type': 'string',
-            'check_with': 'directory',
             'required': True,
             'empty': False,
+            'check_with': 'directory',
         },
         'input-coordinates': {
             'type': 'string',
+            'required': True,
+            'empty': False,
             'check_with': 'directory',
+        },
+        'log': {
+            'type': 'string',
+            'required': True,
+            'empty': False,
+            'check_with': 'directory',
+        },
+        'reference-coordinates': {
+            'type': 'string',
+            'required': True,
+            'empty': False,
+            'check_with': 'directory',
+        },
+        'topology': {
+            'type': 'string',
+            'required': True,
+            'empty': False,
+            'check_with': 'directory',
+        },
+        'trajectory': {
+            'type': 'string',
+            'required': True,
+            'empty': False,
+            'check_with': 'directory',
+        },
+    }    
+    return schema
+
+def get_directory_contents_schema():
+
+    schema = {
+        'control': {
+            'type': 'dict',
+            'required': True,
+            'empty': True,
+            'at_least_one_file': 'log',
+        },
+        'energy': {
+            'type': 'dict',
+            'required': True,
+            'empty': True,
+        },
+        'final-coordinates': {
+            'type': 'dict',
+            'required': True,
+            'empty': True,
+        },
+        'input-coordinates': {
+            'type': 'dict',
             'required': True,
             'empty': False,
         },
         'log': {
-            'type': 'string',
-            'check_with': 'directory',
+            'type': 'dict',
             'required': True,
-            'empty': False,
+            'empty': True,
+            'at_least_one_file': 'control',
         },
         'reference-coordinates': {
-            'type': 'string',
-            'check_with': 'directory',
+            'type': 'dict',
             'required': True,
-            'empty': False,
+            'empty': True,
         },
         'topology': {
-            'type': 'string',
-            'check_with': 'directory',
+            'type': 'dict',
             'required': True,
             'empty': False,
         },
         'trajectory': {
-            'type': 'string',
-            'check_with': 'directory',
+            'type': 'dict',
             'required': True,
-            'empty': False,
+            'empty': True,
         },
     }    
     return schema
