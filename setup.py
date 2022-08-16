@@ -15,7 +15,7 @@ setup(
     python_requires='>=3.6',
 
     install_requires=[
-    'setuptools>=61.2',
+    'setuptools>=64',
     'pyyaml>=6.0',
     'click>=8.1',
     'cerberus>=1.3',
