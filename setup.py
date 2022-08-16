@@ -12,9 +12,13 @@ setup(
 
     packages=find_packages(),
 
+    python_requires='>=3.6',
+
     install_requires=[
-    'pyyaml',
-    'click',
+    'setuptools>=61.2',
+    'pyyaml>=6.0',
+    'click>=8.1',
+    'cerberus>=1.3',
     ],
 
     entry_points={

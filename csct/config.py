@@ -8,7 +8,7 @@ def locate(config_dir):
     config_path = os.path.join(config_dir,"csct_config.yml")
 
     if os.path.isfile(config_path):
-        #to-do: enforce schema with cerberos
+        #to-do: enforce schema with cerberus
         with open (config_path, "r+") as c:
             config = yaml.safe_load(c)
             return(config_path)
@@ -21,8 +21,6 @@ def list(config_path, args):
     print("Reading configuration file from {location}\n".format(location=config_path))
     print("Current configuration settings:")
     
-
-
 def run_config(command, args):
     
     #begin the search for the config file in the cwd
