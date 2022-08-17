@@ -1,8 +1,10 @@
 import click
 
-from csct import __version__
-
 from .validate.validate import validate
+
+import importlib.metadata
+
+__version__ = importlib.metadata.version('csc_tools')
 
 #main CLI
 @click.group()

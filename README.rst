@@ -1,4 +1,4 @@
-# csc-validator
+
 What you will need:
 Internet connection
 Python 3

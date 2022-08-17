@@ -1,0 +1,36 @@
+[build-system]
+requires = ['setuptools>=64.0.0']
+build-backend = 'setuptools.build_meta'
+
+[project]
+name = 'csc_tools'
+version = '0.0.1a0'
+description = "Tools for the Australian Computational and Simulation Commons"
+readme = 'README.rst'
+requires-python = '>=3.6'
+license = {text = "Proprietary"}
+authors = [{name = "Sharif Nada", email = "s.nada@uq.edu.au"}]
+keywords = []
+
+classifiers = [
+    "Environment :: Console",
+    "Framework :: Setuptools Plugin",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+]
+dependencies = [
+    'importlib-metadata; python_version<"3.8"',
+    'pyyaml>=6.0',
+    'click>=8.1',
+    'cerberus>=1.3',
+]
+
+[project.optional-dependencies]
+
+
+[project.scripts]
+csct = 'csct.csct:cli'
