@@ -1,15 +1,45 @@
 import cerberus
 
 class ConfigValidator(cerberus.Validator):
-    def _check_with_valid_authorization(self, field, value): #TO-DO: change to simpler check in ckan 2.10
+    def _check_with_valid_authorization(self, field, value): 
         import csct.common, csct.remote
-        
+
         try:
             with csct.remote.session:
                 pass
         except:
-            self._error(field, "failed to validate API token")
-        
+            self._error(field, "invalid API token")
+
+class MetadataValidator(cerberus.Validator):
+
+    def _check_with_organization_list_for_site(self, field, value):
+
+        import csct.remote
+
+        try:
+            with csct.remote.session as session:
+                site_organizations = session.action.organization_list()
+        except:
+            self._error(field, "failed to retrieve organization list from server")
+
+        if not value in site_organizations:
+            self._error(field, f"unknown organization {value}") 
+
+    def _check_with_organization_list_for_user(self, field, value):
+
+        import csct.remote
+
+        try:
+            with csct.remote.session as session:
+                raw_user_organizations = session.action.organization_list_for_user()
+        except:
+            self._error(field, "failed to retrieve organization list from server")
+
+        user_organizations = [organization['name'] for organization in raw_user_organizations]
+
+        if not value in user_organizations:
+            self._error(field, f"authenticated user is not a member of {value}")  
+
 class DirectoryValidator(cerberus.Validator):
 
     def _check_with_file(self, field, value):

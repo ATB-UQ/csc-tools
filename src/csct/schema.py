@@ -22,16 +22,16 @@ def get_config_schema():
 def get_metadata_schema():
 
     #pull list of valid organizations from CKAN API on the web
-    orgs_web_location = 'api/3/action/organization_list'
-    orgs_url = urllib.parse.urljoin(csct.common.ckan_url, orgs_web_location)
+    # orgs_web_location = 'api/3/action/organization_list'
+    # orgs_url = urllib.parse.urljoin(csct.common.ckan_url, orgs_web_location)
 
-    try:
-        with urllib.request.urlopen(orgs_url) as url:
-            organizations = json.loads(url.read().decode())['result']
-    except urllib.error.URLError:
-        click.secho("FAILED", fg='red')
-        click.secho(f"Could not retrieve organization list from {csct.common.ckan_url}.", fg='red')
-        sys.exit()
+    # try:
+    #     with urllib.request.urlopen(orgs_url) as url:
+    #         organizations = json.loads(url.read().decode())['result']
+    # except urllib.error.URLError:
+    #     click.secho("FAILED", fg='red')
+    #     click.secho(f"Could not retrieve organization list from {csct.common.ckan_url}.", fg='red')
+    #     sys.exit()
 
     schema = {
         'title': {
@@ -51,9 +51,10 @@ def get_metadata_schema():
         #     'type': 'string',
         # },
         'organization': {
-            'allowed': organizations,
+            'check_with': ('organization_list_for_user', 'organization_list_for_site'),
             'empty': False,
             'required': True,
+            'type': 'string',
         },
         'program': {
             'allowed': ['AMBER', 'GROMOS', 'GROMACS'],

@@ -18,9 +18,10 @@ class Session:
 
         ua = f"csc_tools/{importlib.metadata.version('csc_tools')}"
         self.session = ckanapi.RemoteCKAN(csct.common.ckan_url, apikey=get_config('authorization'), user_agent=ua)
+        
         try:
              with self.session as api:
-                 api.action.get_site_user()
+                 api.action.dashboard_activity_list() #TO-DO: change to more natural check in ckan 2.10
                  return self.session
         except ckanapi.errors.NotAuthorized:
             sys.exit()

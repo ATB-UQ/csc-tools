@@ -1,6 +1,5 @@
 import pathlib
 
-import cerberus
 import click
 import yaml
 
@@ -88,7 +87,7 @@ def validate_metadata(dir):
     Validate dataset metadata.
     """
 
-    import csct.common
+    import csct.common, csct.schema, csct.validators
 
     validate_config_status = validate_config()
 
@@ -115,7 +114,7 @@ def validate_metadata(dir):
                 click.secho(f"Could not open metadata file in path {metadata_path}", fg='red')
                 return False
         
-        validator = cerberus.Validator(csct.schema.get_metadata_schema())
+        validator = csct.validators.MetadataValidator(csct.schema.get_metadata_schema())
         validator.validate(metadata)
 
         if validator.errors:
@@ -131,7 +130,7 @@ def validate_structure(dir):
     Validate dataset subdirectory structure.
     """
 
-    import csct.common, csct.validators
+    import csct.common, csct.schema, csct.validators
 
     click.echo("Validating subdirectory structure".ljust(csct.common.print_width, '.'), nl=False)
     
@@ -157,7 +156,7 @@ def validate_files(dir):
     Validate dataset files.
     """
 
-    import csct.common, csct.validators
+    import csct.common, csct.schema, csct.validators
 
     validate_structure_status = validate_structure(dir)
 
