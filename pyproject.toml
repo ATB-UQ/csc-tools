@@ -34,4 +34,4 @@ dependencies = [
 
 
 [project.scripts]
-csct = 'csct.main:cli'
+csct = 'csct.csct:cli'

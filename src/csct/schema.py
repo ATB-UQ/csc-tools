@@ -1,65 +1,79 @@
-import urllib.request
-import urllib.error
-import sys
 import json
-from .common import *
+import urllib.error, urllib.request
+import sys
+
+import ckanapi
+import click
+
+import csct
 
 def get_config_schema():
-    pass
+
+    schema = {
+        'authorization': {
+            'check_with': 'valid_authorization',
+            'empty': False,
+            'required': True,
+            'type': 'string',
+        },
+    }
+    return schema
 
 def get_metadata_schema():
 
     #pull list of valid organizations from CKAN API on the web
     orgs_web_location = 'api/3/action/organization_list'
-    orgs_url = urllib.parse.urljoin(ckan_url, orgs_web_location)
+    orgs_url = urllib.parse.urljoin(csct.common.ckan_url, orgs_web_location)
 
-    try: 
+    try:
         with urllib.request.urlopen(orgs_url) as url:
             organizations = json.loads(url.read().decode())['result']
     except urllib.error.URLError:
-        sys.exit("Could not retrieve organization list from server (" + ckan_url + ").  Please try again later.")
+        click.secho("FAILED", fg='red')
+        click.secho(f"Could not retrieve organization list from {csct.common.ckan_url}.", fg='red')
+        sys.exit()
 
     schema = {
         'title': {
-            'type': 'string',
-            'required': True,
             'empty': False,
+            'required': True,
+            'type': 'string',
         },
         # 'author': {
-        #     'type': 'string',
-        #     'required': True,
         #     'empty': False,
+        #     'required': True,
+        #     'type': 'string',
         # },
         # 'author_email': {
-        #     'type': 'string',
+        #     'empty': False,
         #     'regex': '^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$',
         #     'required': True,
-        #     'empty': False,
+        #     'type': 'string',
         # },
         'organization': {
             'allowed': organizations,
-            'required': True,
             'empty': False,
+            'required': True,
         },
         'program': {
-            'type': 'string',
             'allowed': ['AMBER', 'GROMOS', 'GROMACS'],
-            'required': True,
             'empty': False,
+            'required': True,            
+            'type': 'string',
         },
         'private': {
             'allowed': [True, False],
         },
         'notes': {
-            'type': 'string',
-            'required': True,
             'empty': False,
+            'required': True, 
+            'type': 'string',
         },
         'tags': {
-            'type': 'list',
-            'schema': {'type': 'string'},
-            'required': True,
             'empty': False,
+            'required': True,            
+            'schema': {'type': 'string'},            
+            'type': 'list',
         },
     }
     return schema
@@ -68,52 +82,52 @@ def get_directory_structure_schema():
 
     schema = {
         'control': {
-            'type': 'string',
-            'required': True,
-            'empty': False,
             'check_with': 'directory',
+            'empty': False,
+            'required': True,
+            'type': 'string',
         },
         'energy': {
-            'type': 'string',
-            'required': True,
-            'empty': False,
             'check_with': 'directory',
+            'empty': False,
+            'required': True,
+            'type': 'string',
         },
         'final-coordinates': {
-            'type': 'string',
-            'required': True,
-            'empty': False,
             'check_with': 'directory',
+            'empty': False,
+            'required': True,
+            'type': 'string',
         },
         'input-coordinates': {
-            'type': 'string',
-            'required': True,
-            'empty': False,
             'check_with': 'directory',
+            'empty': False,
+            'required': True,
+            'type': 'string',
         },
         'log': {
-            'type': 'string',
-            'required': True,
-            'empty': False,
             'check_with': 'directory',
+            'empty': False,
+            'required': True,
+            'type': 'string',
         },
         'reference-coordinates': {
-            'type': 'string',
-            'required': True,
-            'empty': False,
             'check_with': 'directory',
+            'empty': False,
+            'required': True,
+            'type': 'string',
         },
         'topology': {
-            'type': 'string',
-            'required': True,
-            'empty': False,
             'check_with': 'directory',
+            'empty': False,
+            'required': True,
+            'type': 'string',
         },
         'trajectory': {
-            'type': 'string',
-            'required': True,
-            'empty': False,
             'check_with': 'directory',
+            'empty': False,
+            'required': True,
+            'type': 'string',
         },
     }    
     return schema
@@ -122,46 +136,46 @@ def get_directory_contents_schema():
 
     schema = {
         'control': {
-            'type': 'dict',
-            'required': True,
-            'empty': True,
             'at_least_one_file': 'log',
+            'empty': True,
+            'required': True,
+            'type': 'dict',
         },
         'energy': {
-            'type': 'dict',
-            'required': True,
             'empty': True,
+            'required': True,
+            'type': 'dict',
         },
         'final-coordinates': {
-            'type': 'dict',
-            'required': True,
             'empty': True,
+            'required': True,
+            'type': 'dict',
         },
         'input-coordinates': {
-            'type': 'dict',
-            'required': True,
             'empty': False,
+            'required': True,
+            'type': 'dict',
         },
         'log': {
-            'type': 'dict',
-            'required': True,
-            'empty': True,
             'at_least_one_file': 'control',
+            'empty': True,
+            'required': True,
+            'type': 'dict',
         },
         'reference-coordinates': {
-            'type': 'dict',
-            'required': True,
             'empty': True,
+            'required': True,
+            'type': 'dict',
         },
         'topology': {
-            'type': 'dict',
-            'required': True,
             'empty': False,
+            'required': True,
+            'type': 'dict',
         },
         'trajectory': {
-            'type': 'dict',
-            'required': True,
             'empty': True,
+            'required': True,
+            'type': 'dict',
         },
     }    
     return schema

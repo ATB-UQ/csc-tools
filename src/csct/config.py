@@ -1,38 +1,64 @@
-import os
+import sys
+
+import click
 import yaml
 
-import sys
-#sys.setrecursionlimit(24)
+@click.command(short_help="View and modify configuration options.")
+@click.argument('name', nargs=1, required=False)
+@click.argument('value', nargs=1, required=False)
+@click.option('-l', '--list', is_flag=True, help="List all configuration variables and values.")
+def config(list, name, value):
+    """
+    View and modify configuration options.
 
-def locate(config_dir):
-    config_path = os.path.join(config_dir,"csct_config.yml")
-
-    if os.path.isfile(config_path):
-        #to-do: enforce schema with cerberus
-        with open (config_path, "r+") as c:
-            config = yaml.safe_load(c)
-            return(config_path)
-    elif config_dir == os.path.dirname(config_dir): #if the parent directory is the same as the current directory (i.e., if we are at the top level)
-        sys.exit("Could not locate csct_config.yml in the specified directory or any parent directories.")
-    else:
-        locate(os.path.dirname(config_dir))
-
-def list(config_path, args):
-    print("Reading configuration file from {location}\n".format(location=config_path))
-    print("Current configuration settings:")
+    \b
+    NAME    Name of configuration variable.
+    VALUE   Desired value of variable.
+            [default: show current value of variable]
+    """
     
-def run_config(command, args):
-    
-    #begin the search for the config file in the cwd
-    config_dir = os.getcwd()
+    from csct.common import print_help
 
-    if command == 'locate':
-        config_path = locate(config_dir)
-        print("Located configuration file in {location}".format(location=config_path))
-
-    if command == 'list':
-        config_path = locate(config_dir)
-        list(config_path, args)
+    if list and not (name or value):
+        list_config()
+    elif name and not value:
+        list_config_single(name)
     else:
-        command.print_help()
-        sys.exit() #if I remove this, it prints the namespace object?
+        print_help()
+
+def list_config():
+    """
+    Print all configuration options.
+    """
+
+    configuration = get_config().items()  
+    [click.echo(f"{key:<20}      {value}") for key, value in configuration]
+
+def list_config_single(name):
+    """
+    Print the value of a single configuration option.
+    """
+    value = get_config(name) 
+    click.echo(value)
+
+def get_config(name=None):
+    """
+    Retrieve configuration options from configuration file.
+    """
+
+    from csct.common import config_path
+
+    if config_path.is_file():
+        try:
+            with open(config_path, "r+") as config_file:
+                configuration = yaml.safe_load(config_file)
+        except:
+            click.secho(f"Could not read configuration file in path {config_path}", fg='red')
+            sys.exit()
+        if not name:
+            return configuration
+        if name:
+            return configuration[name]  
+    else:
+        click.secho(f"Configuration file not found in path {config_path}", fg='red')
+        sys.exit()

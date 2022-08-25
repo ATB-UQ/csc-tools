@@ -2,7 +2,7 @@ import importlib.metadata
 
 import click
 
-from . import csct
+import csct.config, csct.validate
 
 __version__ = importlib.metadata.version('csc_tools')
 
@@ -13,5 +13,5 @@ def cli():
     pass
 
 #top-level commands
-cli.add_command(csct.upload.upload)
+cli.add_command(csct.config.config)
 cli.add_command(csct.validate.validate)

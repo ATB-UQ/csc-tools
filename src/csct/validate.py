@@ -1,134 +1,187 @@
-import sys
-from os import path, listdir, symlink, makedirs, readlink, getcwd #imports from os
-import warnings
-import argparse
-import urllib.request
-from urllib.parse import urljoin
-from urllib.error import URLError
-import json
+import pathlib
+
+import cerberus
+import click
 import yaml
 
-trajectory_data_path = ""
+@click.command(short_help="Validate dataset metadata and contents.")
+@click.argument('dirs', nargs=-1, type=click.Path(exists=True, file_okay=False))
+@click.option('-a', '--all', is_flag=True, help="Validate all dataset properties. [default]")
+@click.option('-c', '--config', is_flag=True, help="Validate configuration settings.")
+@click.option('-m', '--metadata', is_flag=True, help="Validate configuration settings and dataset metadata.")
+@click.option('-s', '--structure', is_flag=True, help="Validate dataset subdirectory structure.")
+@click.option('-f', '--files', is_flag=True, help="Validate dataset subdirectory structure and files.")
+#@click.option('-f', '--file-contents', is_flag=True, help="Validate dataset subdirectory structure, subdirectory contents, and contents of files in subdirectories.")
+def validate(all, config, metadata, structure, files, dirs):
+    """
+    Validate dataset metadata, subdirectory structure, and contents of subdirectories and files.
 
-#pull list of valid organizations from CKAN API on the web
-ckan_url = 'https://molecular-dynamics.atb.uq.edu.au/'
-orgs_web_location = 'api/3/action/organization_list'
-orgs_url = urljoin(ckan_url, orgs_web_location)
+    \b
+    DIRS    Directories to recursively scan for datasets. 
+            [default: current working directory]
+    """
+    import csct.common
 
-try: 
-    with urllib.request.urlopen(orgs_url) as url:
-        organizations = json.loads(url.read().decode())['result']
-        print(organizations)
-except URLError:
-    sys.exit("Could not retrieve organization list from ACSC server (" + ckan_url + ").  Please try again later.")
-#organizations = ["bernhardt", "chalmers", "deplazes", "krenske", "malde", "mduq", "omara", "smith", "yu"]
-#programs we support parsing for right now
-programs = "AMBER", "GROMOS", "GROMACS"
-
-def validate_metadata( #function definition for function that returns dataset control parameters with arguments: 
-    dataset_path, #path of the dataset
-):
-    config_path = path.join(dataset_path, "metadata.yml") #check for this name first
+    if not dirs: #default to cwd if no directories supplied
+        click.echo("No directory paths supplied.  Searching for datasets in current working directory.")
+        dirs = ['.']
     
-    if not path.exists(config_path): #if it's not there...
-        config_path = path.join(dataset_path, "atbrepo.yml") #check for the alternative name
+    found_dirs = csct.common.find_directories(dirs)
 
-    if not path.exists(config_path): #if it's still not there...
-        raw_config = {} #define an empty dictionary with no keys
-    else: #if the path to the metadata file exists
-        try: 
-            with open(config_path, "r") as c: #try to open the metadata file
-                raw_config = yaml.safe_load(c) #if the metadata file is there, create the raw_config dictionary by loading the yaml file
-        except FileNotFoundError: 
-            raise Exception("Exception: could not locate metadata file.") #throw exception if it's not there
-    USE_KEYS = ("title", "notes", "author", "author_email", "program", "private", "organization") #list of keys to use to look up in the metadata dictionary (raw_config)
-    config = { #dictionary of the metadata
-        key:raw_config[key] \
-            for key in raw_config if key in USE_KEYS
-    }
+    if all or (config == metadata == structure == files): #process flags
+        config = True; metadata = True; structure = True; files = True
+    
+    for dir in found_dirs:
+        validate_single(config, metadata, structure, files, dir)
 
-    if 'title' in config and config['title'] != None: #if there is a title field and the value is not null
-        title = config['title']
+
+def validate_single(config, metadata, structure, files, dir):
+    click.echo(f"Validating dataset in path {dir}")
+
+    validate_status = True
+    
+    if metadata:
+        validate_status = validate_status * validate_metadata(dir)
+    elif config:
+        validate_status = validate_status * validate_config()
+    
+    if files:
+        validate_status = validate_status * validate_files(dir)       
+    elif structure:
+        validate_status = validate_status * validate_structure(dir)
+
+    return bool(validate_status)
+
+def get_path_type(path):
+    """
+    Return the type of a supplied path.
+    """
+    if path.is_file():
+        return 'file'
+    elif path.is_dir():
+        return 'directory'
+    else:
+        return 'other'
+
+def validate_config():
+    """
+    Validate configuration settings.
+    """
+
+    import csct.common, csct.config, csct.schema, csct.validators
+
+    click.echo("Validating configuration settings".ljust(csct.common.print_width, '.'), nl=False)
+
+    validator = csct.validators.ConfigValidator(csct.schema.get_config_schema())
+    validator.validate(csct.config.get_config())
+
+    if validator.errors:
+        click.secho("FAILED", fg='red')
+        [click.secho(f"{key}: {value[0]}", fg='red') for key, value in validator.errors.items()]
+        return False
+    else:
+        click.secho("PASSED", fg='green')
+        return True
+
+def validate_metadata(dir):
+    """
+    Validate dataset metadata.
+    """
+
+    import csct.common
+
+    validate_config_status = validate_config()
+
+    click.echo("Validating metadata".ljust(csct.common.print_width, '.'), nl=False)
+
+    if not validate_config_status:
+        click.secho("SKIPPED", fg='yellow')
+        click.secho("Metadata validation requires validated configuration options.", fg='yellow')
+        return False
+    else:
+        if (pathlib.Path(dir) / "atbrepo.yaml").exists() and (pathlib.Path(dir) / "atbrepo.yml").exists(): #check for duplicate metadata files
+            click.secho("FAILED", fg='red')
+            click.secho(f"Two metadata files found in path.  Only one metadata file per dataset is supported.", fg='red')
+            return False
+        else:
+            metadata_path = pathlib.Path(dir) / "atbrepo.yaml" #check for this name first
+            if not metadata_path.exists(): #if it's not there...
+                metadata_path = pathlib.Path(dir) / "atbrepo.yml" #check for the alternative name
+            try: 
+                with open(metadata_path, "r") as c: #try to open the metadata file
+                    metadata = yaml.safe_load(c)
+            except: 
+                click.secho("FAILED", fg='red')
+                click.secho(f"Could not open metadata file in path {metadata_path}", fg='red')
+                return False
+        
+        validator = cerberus.Validator(csct.schema.get_metadata_schema())
+        validator.validate(metadata)
+
+        if validator.errors:
+            click.secho("FAILED", fg='red')
+            [click.secho(f"{key}: {value[0]}", fg='red') for key, value in validator.errors.items()]
+            return False
+        else:
+            click.secho("PASSED", fg='green')
+            return True   
+           
+def validate_structure(dir):
+    """
+    Validate dataset subdirectory structure.
+    """
+
+    import csct.common, csct.validators
+
+    click.echo("Validating subdirectory structure".ljust(csct.common.print_width, '.'), nl=False)
+    
+    directory_structure = {}
+
+    for subdir in pathlib.Path(dir).glob('*'):
+        if subdir.exists() and str(subdir.name) not in ["atbrepo.yaml", "atbrepo.yml"]: 
+            directory_structure[str(subdir.name)] = get_path_type(subdir)
+          
+    validator = csct.validators.DirectoryValidator(csct.schema.get_directory_structure_schema())
+    validator.validate(directory_structure)
+
+    if validator.errors:
+        click.secho("FAILED", fg='red')
+        [click.secho(f"{key}: {value[0]}", fg='red') for key, value in validator.errors.items()]
+        return False
+    else:
+        click.secho("PASSED", fg='green')
+        return True
+
+def validate_files(dir):
+    """
+    Validate dataset files.
+    """
+
+    import csct.common, csct.validators
+
+    validate_structure_status = validate_structure(dir)
+
+    click.echo("Validating dataset files".ljust(csct.common.print_width, '.'), nl=False)
+
+    if not validate_structure_status:
+        click.secho("SKIPPED", fg='yellow')
+        click.secho("Dataset file validation requires validated subdirectory structure.", fg='yellow')
+        return False
     else: 
-        warnings.warn("No title specified in metadata file. Defaulting to dataset basename.")       
-        title = dataset            
-    print("Title: " + title)
+        
+        directory_structure = {}
 
-    try: 
-        author = config['author']
-    except (KeyError, ValueError):
-        warnings.warn("No author specified in metadata file.")       
-        title = dataset
-    print("Title: " + title)
+        for subdir in pathlib.Path(dir).glob('*'):
+            if subdir.is_dir() and str(subdir.name) not in ["atbrepo.yaml", "atbrepo.yml"]: 
+                directory_structure[str(subdir.name)] = {str(key): get_path_type(key) for key in pathlib.Path(subdir).glob('*')}     
+        
+        validator = csct.validators.DirectoryValidator(csct.schema.get_directory_contents_schema())
+        validator.validate(directory_structure)
 
-    if not (('author' in config) or config['author']):
-        raise Exception("Exception: no author specified in metadata file.")
-    else:
-        print("Author: " + config['author'])    
-
-    if not (('author_email' in config) or config['author_email']):
-        raise Exception("Exception: no author e-mail address specified in metadata file.")
-    else:
-        print("Author E-mail Address: " + config['author_email'])
-
-    if not (('organization' in config) or config['organization']):
-        raise Exception("Exception: no organization specified in metadata file.")
-    elif not config['organization'].lower() in organizations:
-        raise Exception("Exception: invalid organization specified in metadata file. Valid organizations are: {}".format(", ".join(organizations)))
-    else:
-        organization = config['organization'].lower()
-        print("Organization: " + organization)     
-
-    if not (('program' in config) or config['program']):
-       raise Exception("Exception: no simulation program specified in metadata file.") 
-    elif all(x != config['program'] for x in programs):
-        raise Exception("Exception: invalid program specified in metadata file.")
-    else:
-        print("Program: " + config['program'])
-
-    if not (('private' in config) or config['private']):
-        warnings.warn("Warning: dataset privacy level not specified. Defaulting to public.")
-        config['private'] = "False"
-    print("Private:" + config['private'])
-
-    try:
-        tags = [dict(name=tag) for tag in raw_config["tags"] ] #creates a list of dictionaries of form {name=tag}
-    except KeyError:
-        warnings.warn("Warning: no tags supplied.")
-        tags = [] #If missing tags, just has none
-   #special_tags = raw_config["special_tags"]
-   #for tag_type in special_tags:
-   #    tags.append( dict(name=special_tags[tag_type], vocabulary_id=tag_type) )
-
-    return config, tags
-
-parser = argparse.ArgumentParser() #create an argument parser object
-parser.add_argument( #add an argument for specifying a specific directory
-    "-d", "--dir", #argument provided by typing either of these
-    default="", #defaults to no directory
-    help="Specify the full path to a directory containing a dataset to validate", #help for the argument
-)
-
-args = parser.parse_args() #parse the arguments supplied and save as a namespace object
-
-if args.dir == "": #if the argument namespace is empty...
-    dataset_path = getcwd()
-    dataset_basename = path.basename(dataset_path)
-else:
-    if not path.isdir(args.dir): #if the path supplied by the -d argument is not a directory...
-        sys.stderr.write("Path is not a directory: " + args.dir + "\n") #write to standard error
-        exit(1) #we consider this to be a fatal error, program exits
-    dataset_path = path.relpath(args.dir, trajectory_data_path)
-    dataset_basename = path.basename(args.dir)    
-dataset_config(dataset_basename,dataset_path,trajectory_data_path)    
-
-def validate(dataset_path):
-    parse_metadata(dataset_path)
-
-def cmd_validate(args=None):
-    import argparse
-    parser = argparse.ArgumentParser()
-    parser.add_argument('dir', type=float)
-    parsed_args = parser.parse_args(args)
-
-    print(metadata_summary(parsed_args.dir))
+        if validator.errors:
+            click.secho("FAILED", fg='red')
+            [click.secho(f"{key}: {value[0]}", fg='red') for key, value in validator.errors.items()]
+            return False
+        else:
+            click.secho("PASSED", fg='green')
+            return True  

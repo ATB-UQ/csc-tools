@@ -1,6 +1,7 @@
 # CSC Test Directory
 test_dirs
 # CSC Config File
+config/
 csct_config.yaml
 # Old files
 config_old.py
