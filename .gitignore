@@ -1,5 +1,10 @@
 # CSC Test Directory
 test_dirs
+# CSC Config File
+csct_config.yaml
+# Old files
+config_old.py
+validate_old.py
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
