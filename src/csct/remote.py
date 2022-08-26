@@ -6,27 +6,20 @@ import click
 
 import csct.common
 
-class Session:
+class Session(ckanapi.RemoteCKAN):
+
+    def __init__(self, address=csct.common.ckan_url, apikey=None, get_only=False, session=None, **kwargs):
+        self.ua = f"csc_tools/{importlib.metadata.version('csc_tools')}"
+        assert type(address) == str, "Address must be provided"
+        super(Session, self).__init__(address, apikey=apikey, user_agent=self.ua, get_only=get_only, session=session)
+
+        # try:
+        #      with self.session as api:
+        #          api.action.dashboard_activity_list() #TO-DO: change to more natural check in ckan 2.10
+        #          return self.session
+        # except ckanapi.errors.NotAuthorized:
+        #     sys.exit()
     
-    def __new__(cls):
-        if not hasattr(cls, 'instance'):
-            cls.instance = super(Session, cls).__new__(cls)
-        return cls.instance
 
-    def __enter__(self):
-        from csct.config import get_config
 
-        ua = f"csc_tools/{importlib.metadata.version('csc_tools')}"
-        self.session = ckanapi.RemoteCKAN(csct.common.ckan_url, apikey=get_config('authorization'), user_agent=ua)
-        
-        try:
-             with self.session as api:
-                 api.action.dashboard_activity_list() #TO-DO: change to more natural check in ckan 2.10
-                 return self.session
-        except ckanapi.errors.NotAuthorized:
-            sys.exit()
-        
-    def __exit__(self, *_):
-        self.session.close() 
-
-session = Session()       
+#session = Session(**config_dict)       

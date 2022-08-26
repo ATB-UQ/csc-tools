@@ -6,12 +6,13 @@ import yaml
 @click.command(short_help="Validate dataset metadata and contents.")
 @click.argument('dirs', nargs=-1, type=click.Path(exists=True, file_okay=False))
 @click.option('-a', '--all', is_flag=True, help="Validate all dataset properties. [default]")
+@click.option('-e', '--export', is_flag=True, help="Validate all dataset properties and attempt to export dataset.")
 @click.option('-c', '--config', is_flag=True, help="Validate configuration settings.")
 @click.option('-m', '--metadata', is_flag=True, help="Validate configuration settings and dataset metadata.")
 @click.option('-s', '--structure', is_flag=True, help="Validate dataset subdirectory structure.")
 @click.option('-f', '--files', is_flag=True, help="Validate dataset subdirectory structure and files.")
 #@click.option('-f', '--file-contents', is_flag=True, help="Validate dataset subdirectory structure, subdirectory contents, and contents of files in subdirectories.")
-def validate(all, config, metadata, structure, files, dirs):
+def validate(all, export, config, metadata, structure, files, dirs):
     """
     Validate dataset metadata, subdirectory structure, and contents of subdirectories and files.
 
@@ -31,7 +32,8 @@ def validate(all, config, metadata, structure, files, dirs):
         config = True; metadata = True; structure = True; files = True
     
     for dir in found_dirs:
-        validate_single(config, metadata, structure, files, dir)
+        if validate_single(config, metadata, structure, files, dir) and (config == metadata == structure == files) and export:
+            export_single(dir)
 
 
 def validate_single(config, metadata, structure, files, dir):
@@ -184,3 +186,14 @@ def validate_files(dir):
         else:
             click.secho("PASSED", fg='green')
             return True  
+
+def export_single(dir):
+    """
+    Export dataset as archive.
+    """
+
+    from csct.config import get_config
+
+    export_path = get_config('export_path')
+
+    click.echo(f"Exporting {dir} to {export_path}")            

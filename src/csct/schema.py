@@ -1,12 +1,3 @@
-import json
-import urllib.error, urllib.request
-import sys
-
-import ckanapi
-import click
-
-import csct
-
 def get_config_schema():
 
     schema = {
@@ -16,22 +7,16 @@ def get_config_schema():
             'required': True,
             'type': 'string',
         },
+        'export_path': {
+            'check_with': 'writable_directory',
+            'empty': False,
+            'required': True,
+            'type': 'string',
+        },
     }
     return schema
 
 def get_metadata_schema():
-
-    #pull list of valid organizations from CKAN API on the web
-    # orgs_web_location = 'api/3/action/organization_list'
-    # orgs_url = urllib.parse.urljoin(csct.common.ckan_url, orgs_web_location)
-
-    # try:
-    #     with urllib.request.urlopen(orgs_url) as url:
-    #         organizations = json.loads(url.read().decode())['result']
-    # except urllib.error.URLError:
-    #     click.secho("FAILED", fg='red')
-    #     click.secho(f"Could not retrieve organization list from {csct.common.ckan_url}.", fg='red')
-    #     sys.exit()
 
     schema = {
         'title': {

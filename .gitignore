@@ -1,4 +1,5 @@
-# CSC Test Directory
+# CSC Test Directories
+export_dir
 test_dirs
 # CSC Config File
 config/

@@ -1,11 +1,20 @@
+import os
+
 import cerberus
 
 class ConfigValidator(cerberus.Validator):
-    def _check_with_valid_authorization(self, field, value): 
+    def _check_with_writable_directory(self, field, value):
+        try:
+            os.access(value, os.X_OK | os.W_OK)
+        except:
+            self._error(field, "not a writable directory")
+
+    def _check_with_valid_authorization(self, field, _): 
         import csct.common, csct.remote
+        from csct.config import get_config
 
         try:
-            with csct.remote.session:
+            with csct.remote.Session(apikey=get_config('authorization')):
                 pass
         except:
             self._error(field, "invalid API token")
@@ -15,9 +24,10 @@ class MetadataValidator(cerberus.Validator):
     def _check_with_organization_list_for_site(self, field, value):
 
         import csct.remote
+        from csct.config import get_config
 
         try:
-            with csct.remote.session as session:
+            with csct.remote.Session(apikey=get_config('authorization')) as session:
                 site_organizations = session.action.organization_list()
         except:
             self._error(field, "failed to retrieve organization list from server")
@@ -28,9 +38,10 @@ class MetadataValidator(cerberus.Validator):
     def _check_with_organization_list_for_user(self, field, value):
 
         import csct.remote
+        from csct.config import get_config
 
         try:
-            with csct.remote.session as session:
+            with csct.remote.Session(apikey=get_config('authorization')) as session:
                 raw_user_organizations = session.action.organization_list_for_user()
         except:
             self._error(field, "failed to retrieve organization list from server")
