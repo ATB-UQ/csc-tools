@@ -4,9 +4,7 @@ import cerberus
 
 class ConfigValidator(cerberus.Validator):
     def _check_with_writable_directory(self, field, value):
-        try:
-            os.access(value, os.X_OK | os.W_OK)
-        except:
+        if not os.access(value, os.X_OK | os.W_OK):
             self._error(field, "not a writable directory")
 
     def _check_with_valid_authorization(self, field, _): 

@@ -6,7 +6,6 @@ import csct.config, csct.validate
 
 __version__ = importlib.metadata.version('csc_tools')
 
-
 #main CLI
 @click.group()
 @click.version_option(__version__) #show version information

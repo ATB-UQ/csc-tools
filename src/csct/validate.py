@@ -11,7 +11,6 @@ import yaml
 @click.option('-m', '--metadata', is_flag=True, help="Validate configuration settings and dataset metadata.")
 @click.option('-s', '--structure', is_flag=True, help="Validate dataset subdirectory structure.")
 @click.option('-f', '--files', is_flag=True, help="Validate dataset subdirectory structure and files.")
-#@click.option('-f', '--file-contents', is_flag=True, help="Validate dataset subdirectory structure, subdirectory contents, and contents of files in subdirectories.")
 def validate(all, export, config, metadata, structure, files, dirs):
     """
     Validate dataset metadata, subdirectory structure, and contents of subdirectories and files.
@@ -191,9 +190,32 @@ def export_single(dir):
     """
     Export dataset as archive.
     """
+    import tarfile
+    import time
 
+    from tqdm import tqdm
+
+    import csct.common
     from csct.config import get_config
+
+    members = list(pathlib.Path(dir).glob('**/*'))
 
     export_path = get_config('export_path')
 
-    click.echo(f"Exporting {dir} to {export_path}")            
+    tar_file = (pathlib.Path(export_path) / pathlib.Path(dir).stem).with_suffix(".tar.gz")
+
+    try:
+        with tarfile.open(tar_file, mode="w:gz") as tar:
+            
+            progress = tqdm(members, unit="files", bar_format='{bar:40}{percentage:3.0f}%  {desc}', ncols=80, leave=False)
+            
+            for member in progress:
+                tar.add(member, arcname=str(member.relative_to(dir)))
+                progress.set_description_str(f"Compressing {member.relative_to(dir)}")
+                time.sleep(0.5)
+        click.echo("\rExporting dataset".ljust(csct.common.print_width-1, '.'), nl=False)
+        click.secho("COMPLETE", fg='green')
+        click.echo(f"Successfully exported dataset to {tar_file}")    
+    except:
+        click.echo("\rExporting dataset".ljust(csct.common.print_width, '.'), nl=False)
+        click.secho("FAILED", fg='red')
