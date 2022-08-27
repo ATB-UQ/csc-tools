@@ -4,7 +4,7 @@ build-backend = 'setuptools.build_meta'
 
 [project]
 name = 'csc_tools'
-version = '0.0.1a0'
+version = '0.0.1b0'
 description = "Tools for the Australian Computational and Simulation Commons"
 readme = 'README.rst'
 requires-python = '>=3.6'
@@ -32,7 +32,10 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-
+docs = [
+    'sphinx>=5.0',
+    'sphinx-rtd-theme>=1.0.0'
+]
 
 [project.scripts]
 csct = 'csct.__main__:cli'
