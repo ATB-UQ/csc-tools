@@ -1,16 +1,17 @@
 .. _Configuring csc-tools:
+
 Configuring csc-tools
 =====================
 
 Now that csc-tools has been successfully installed, configuration is required before the program can be used to validate datasets.  
 
-Initializing the csc-tools Configuration File
----------------------------------------------
+Initializing the  Configuration File
+------------------------------------
 
 Before csc-tools configuration options can be set, the csc-tools configuration file must be initialized.  To do this, execute the following command:
 
 .. code-block::
-    
+
     csct config --init
 
 .. warning::

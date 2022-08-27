@@ -1,4 +1,5 @@
 .. _Exporting Datasets:
+
 Exporting Datasets
 ==================
 
@@ -7,7 +8,7 @@ After datasets have been successfully validated, csc-tools can be used to archiv
 This can be done by passing a flag to the :code:`csct validate` subcommand:
 
 .. code-block::
-    
+
     csct validate --export /path/to/datasets /path/to/more/datasets
 
 .. warning::

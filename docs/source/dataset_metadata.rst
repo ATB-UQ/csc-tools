@@ -1,4 +1,5 @@
 .. _Structuring Metadata:
+
 Structuring Metadata
 ====================
 
@@ -49,7 +50,7 @@ A few example metadata files are included for reference:
         - protein
 
 .. code-block::
-    
+
     title: 'Alpha-helical peptide AP'
     notes: 'Alpha-helical peptide AP with GROMOS 54A7 in GROMOS (replicate 1 of 3).'
     program: GROMOS

@@ -34,7 +34,7 @@ To install csc-tools, execute the following command in a terminal:
 To confirm that the csc-tools installation is working, try running the program by executing the following command in a terminal:
 
 .. code-block::
-    
+
     csct --version
 
-If the version number of csct is displayed, the installation has completed successfully and csc-tools is ready to be used.
+If the version number of :code:`csct` is displayed, the installation has completed successfully and csc-tools is ready to be used.

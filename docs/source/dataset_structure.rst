@@ -1,11 +1,12 @@
 .. _Structuring Datasets:
+
 Structuring Datasets
 ====================
 
 The ACSC uses a standard directory structure to identify files associated with molecular dynamics simulations.  Each dataset submitted to the ACSC must conform to the following directory structure:
 
 .. code-block::
-    
+
     └──System_Name
         ├── atbrepo.yaml
         ├── control
