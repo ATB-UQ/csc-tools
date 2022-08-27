@@ -5,6 +5,7 @@ Structuring Metadata
 As mentioned in :ref:`Structuring Datasets`, the atbrepo.yaml file in each dataset directory contains the metadata necessary to describe the dataset in the ACSC database.  This metadata must be provided by the user in `YAML <https://yaml.org/>`_ format according to the following template:
 
 .. code-block::
+
     title: "This will appear as the title of the simulation on the ACSC website. Should be enclosed in quotation marks."
     notes: "This will appear as a description of the simulation on the ACSC website. Should be enclosed in quotation marks.  If the data is related to a publication, the DOI of the publication can also be included in this field."
     program: The name of the program used to carry out the simulation run. Currently supported values are AMBER, GROMACS, and GROMOS.  Only one program name per dataset should be provided.  
@@ -20,6 +21,7 @@ As mentioned in :ref:`Structuring Datasets`, the atbrepo.yaml file in each datas
 A few example metadata files are included for reference:
 
 .. code-block::
+
     title: 'D6PC lipid bilayer'
     notes: 'A lipid bilayer consisting of 512 D6PC molecules. Initiated from a smaller 128-lipid DLPC equilibrated bilayer with trimmed tails. Pore spontaneously form during the simulation.'
     program: GROMACS
@@ -32,6 +34,7 @@ A few example metadata files are included for reference:
         - solvent-H2O
     
 .. code-block::
+
     title: 'Hen egg-white lysozyme'
     notes: "Hen egg-white lysozyme protein with GROMOS 54A7 in AMBER (replicate 1 of 3).  Initial structure obtained from the Protein Data Bank (PDB). PDB ID - 1AKI, URL -  https://www.rcsb.org/structure/1AKI "
     program: AMBER
@@ -46,6 +49,7 @@ A few example metadata files are included for reference:
         - protein
 
 .. code-block::
+    
     title: 'Alpha-helical peptide AP'
     notes: 'Alpha-helical peptide AP with GROMOS 54A7 in GROMOS (replicate 1 of 3).'
     program: GROMOS
