@@ -18,12 +18,12 @@ Before csc-tools configuration options can be set, the csc-tools configuration f
 Configuring the API Token
 -------------------------
 
-csc-tools must be configured with the API token generated in `Creating an ACSC API Token`_ in order to correctly associate contributed datasets with users.  To do this, execute the following command:
+csc-tools must be configured with the API token generated in :ref:`Creating an ACSC API Token` in order to correctly associate contributed datasets with users.  To do this, execute the following command:
 
 .. code-block::
     csct config authorization xxxxxxxxxxxxxxxxxxx
 
-Where xxxxxxxxxxxxxxxxxxx is the API token generated in `Creating an ACSC API Token`_.  To check if the API token was successfully set, execute the following command:
+Where :code:`xxxxxxxxxxxxxxxxxxx` is the API token generated in :ref:`Creating an ACSC API Token`.  To check if the API token was successfully set, execute the following command:
 
 .. code-block::
     csct config authorization

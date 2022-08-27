@@ -2,7 +2,7 @@
 Structuring Metadata
 ====================
 
-As mentioned in `Structuring Datasets`_, the atbrepo.yaml file in each dataset directory contains the metadata necessary to describe the dataset in the ACSC database.  This metadata must be provided by the user in `YAML <https://yaml.org/>`_ format according to the following template:
+As mentioned in :ref:`Structuring Datasets`, the atbrepo.yaml file in each dataset directory contains the metadata necessary to describe the dataset in the ACSC database.  This metadata must be provided by the user in `YAML <https://yaml.org/>`_ format according to the following template:
 
 .. code-block::
     title: "This will appear as the title of the simulation on the ACSC website. Should be enclosed in quotation marks."
@@ -19,7 +19,7 @@ As mentioned in `Structuring Datasets`_, the atbrepo.yaml file in each dataset d
  
 A few example metadata files are included for reference:
 
- .. code-block::
+.. code-block::
     title: 'D6PC lipid bilayer'
     notes: 'A lipid bilayer consisting of 512 D6PC molecules. Initiated from a smaller 128-lipid DLPC equilibrated bilayer with trimmed tails. Pore spontaneously form during the simulation.'
     program: GROMACS

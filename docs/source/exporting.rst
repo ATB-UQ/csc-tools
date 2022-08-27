@@ -10,7 +10,7 @@ This can be done by passing a flag to the :code:`csct validate` subcommand:
     csct validate --export /path/to/datasets /path/to/more/datasets
 
 .. warning::
-    Datasets must have passed validation as described in `Validating Datasets`_ in order to be exported and the export_path configuration option must be set as described in `Configuring csc-tools`_
+    Datasets must have passed validation as described in :ref:`Validating Datasets` in order to be exported and the export_path configuration option must be set as described in :ref:`Configuring csc-tools`
 
 The progress of the dataset export can be monitored in the terminal output.  After export has completed, each successfully exported dataset will result in the creation of a corresponding :code:`.tar.gz` file in :code:`export_path` containing all files and subdirectories in the dataset directory, along with the metadata file.  
 

@@ -19,7 +19,7 @@ This document explains the procedure for contributing data to the ACSC.
    configuring_csct
 
 .. toctree::
-   :maxdepth: -1
+   :maxdepth: 1
    :caption: Preparing Datasets
    
    dataset_structure
