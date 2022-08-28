@@ -193,7 +193,7 @@ def export_single(dir):
     import tarfile
     #import time
 
-    from tqdm import tqdm
+    from tqdm.auto import tqdm
 
     import csct.common
     from csct.config import get_config
@@ -213,9 +213,9 @@ def export_single(dir):
                 tar.add(member, arcname=str(member.relative_to(dir)))
                 progress.set_description_str(f"Compressing {member.relative_to(dir)}")
                 #time.sleep(0.5)
-        click.echo("\rExporting dataset".ljust(csct.common.print_width-1, '.'), nl=False)
-        click.secho("COMPLETE", fg='green')
-        click.echo(f"Successfully exported dataset to {tar_file}")    
+        #click.echo("\rExporting dataset".ljust(csct.common.print_width-1, '.'), nl=False)
+        #click.secho("COMPLETE", fg='green')
+        click.secho(f"Successfully exported dataset to {tar_file}", fg='green')    
     except:
         click.echo("\rExporting dataset".ljust(csct.common.print_width, '.'), nl=False)
         click.secho("FAILED", fg='red')
