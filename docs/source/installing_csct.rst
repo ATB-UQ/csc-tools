@@ -24,7 +24,7 @@ Installation
 
 To install csc-tools, execute the following command in a terminal:
 
-.. code-block::
+.. code-block:: console
 
     pip install --upgrade --force-reinstall git+https://github.com/ATB-UQ/csc-validator@master
 
@@ -33,7 +33,7 @@ To install csc-tools, execute the following command in a terminal:
 
 To confirm that the csc-tools installation is working, try running the program by executing the following command in a terminal:
 
-.. code-block::
+.. code-block:: console
 
     csct --version
 

@@ -9,7 +9,7 @@ This can be done using the :code:`csct validate` subcommand.
 
 To use the command to validate all properties of a dataset, execute the following command:
 
-.. code-block::
+.. code-block:: console
 
     csct validate /path/to/datasets /path/to/more/datasets
 
