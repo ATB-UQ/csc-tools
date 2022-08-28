@@ -6,6 +6,7 @@ config/
 csct_config.yaml
 # Old files
 config_old.py
+upload_old.py
 validate_old.py
 
 # Byte-compiled / optimized / DLL files
