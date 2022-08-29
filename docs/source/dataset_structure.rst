@@ -53,7 +53,7 @@ control
 
 This directory should contain control/parameter/settings files for the simulation run (or segments thereof, in the case of continuation runs) (e.g., .mdp files for GROMACS, .imd files for GROMOS, .mdin files for AMBER).
 
-.. warning::
+.. note::
     At least one control or log file must be provided for a dataset to be included in the ACSC database. 
 
 energy
@@ -71,7 +71,7 @@ input-coordinates
 
 This directory should contain input coordinate files for the simulation run (or segments thereof, in the case of continuation runs).
 
-.. warning::
+.. note::
     At least one input coordinates file must be provided for a dataset to be included in the ACSC database.
 
 forcefield-files
@@ -84,7 +84,7 @@ log
 
 This directory should contain log files for the simulation run (or segments thereof, in the case of continuation runs).
 
-.. warning::
+.. note::
     At least one control or log file must be provided for a dataset to be included in the ACSC database. 
 
 reference-coordinates
@@ -97,7 +97,7 @@ topology
 
 Topology files for the simulation run.
 
-.. warning::
+.. note::
     At least one topology file must be provided for a dataset to be included in the ACSC database.
 
 trajectory
