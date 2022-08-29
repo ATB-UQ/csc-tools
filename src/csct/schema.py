@@ -42,7 +42,7 @@ def get_metadata_schema():
             'type': 'string',
         },
         'program': {
-            'allowed': ['AMBER', 'GROMOS', 'GROMACS'],
+            'allowed': ['AMBER', 'CHARMM', 'GROMACS', 'GROMOS', 'NAMD'],
             'empty': False,
             'required': True,            
             'type': 'string',
