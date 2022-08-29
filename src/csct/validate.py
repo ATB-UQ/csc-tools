@@ -212,7 +212,7 @@ def export_single(dir):
             for member in progress:
                 tar.add(member, arcname=str(member.relative_to(dir)))
                 progress.set_description_str(f"Compressing {member.relative_to(dir)}")
-                time.sleep(0.5)
+                #time.sleep(0.5)
         #click.echo("\rExporting dataset".ljust(csct.common.print_width-1, '.'), nl=False)
         #click.secho("COMPLETE", fg='green')
         #click.secho(f"Successfully exported dataset to {tar_file}", fg='green')    

@@ -28,9 +28,9 @@ The ACSC uses a standard directory structure to identify files associated with m
         └── trajectory
             └──System_Name_trajectory_00001.fileextension
 
-    In all cases listed above :code:`.fileextension` should be replaced with the appropriate file extension for the given file type.  In most cases, no modification of the file extension should be necessary on the part of the user.
+In all cases listed above :code:`.fileextension` should be replaced with the appropriate file extension for the given file type.  In most cases, no modification of the file extension should be necessary on the part of the user.
 
-    Files containing :code:`00001` are file types which can be sequentially numbered to indicate continuation runs.  
+Files containing :code:`00001` are file types which can be sequentially numbered to indicate continuation runs.  
 
 .. warning::
     All top level directories (control, energy, etc.) must be present, even if no files of a given type are provided.  No other files or directories, hidden or otherwise, are permitted at the top level.  Ensure that no hidden files are present with :code:`ls -a`. 
