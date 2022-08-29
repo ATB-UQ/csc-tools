@@ -10,35 +10,32 @@ The ACSC uses a standard directory structure to identify files associated with m
     └──System_Name
         ├── atbrepo.yaml
         ├── control
-        |   └──System_Name_control_00001.file
+        |   └──System_Name_control_00001.fileextension
         ├── energy
-        |   └──System_Name_energy_00001.file
+        |   └──System_Name_energy_00001.fileextension
         ├── final-coordinates
-        |   └──System_Name_final-coordinates_00001.file
+        |   └──System_Name_final-coordinates_00001.fileextension
         ├── input-coordinates
-        |   └──System_Name_input-coordinates_00001.file
+        |   └──System_Name_input-coordinates_00001.fileextension
         ├── forcefield-files
-        |   └──System_Name_forcefield-files.file
+        |   └──System_Name_forcefield-files.fileextension
         ├── log
-        |   └──System_Name_log_00001.file
+        |   └──System_Name_log_00001.fileextension
         ├── reference-coordinates
-        |   └──System_Name_reference-coordinates.file
+        |   └──System_Name_reference-coordinates.fileextension
         ├── topology
-        |   └──System_Name_topology.file
+        |   └──System_Name_topology.fileextension
         └── trajectory
-            └──System_Name_trajectory_00001.file
+            └──System_Name_trajectory_00001.fileextension
 
 .. note::
-    In all cases listed above :code:`.file` should be replaced with the appropriate file extension for the given file type.  In most cases, no modification of the file extension should be necessary on the part of the user.
+    In all cases listed above :code:`.fileextension` should be replaced with the appropriate file extension for the given file type.  In most cases, no modification of the file extension should be necessary on the part of the user.
 
 .. note::
     Files containing :code:`00001` are file types which can be sequentially numbered to indicate continuation runs.  
 
 .. warning::
     All top level directories (control, energy, etc.) must be present, even if no files of a given type are provided.  No other files or directories, hidden or otherwise, are permitted at the top level.  Ensure that no hidden files are present with :code:`ls -a`. 
-
-.. warning::
-    At least one control or log file must be provided for a dataset to be included in the ACSC database.  
 
 System_Name
 -----------
@@ -58,6 +55,9 @@ control
 
 This directory should contain control/parameter/settings files for the simulation run (or segments thereof, in the case of continuation runs) (e.g., .mdp files for GROMACS, .imd files for GROMOS, .mdin files for AMBER).
 
+.. warning::
+    At least one control or log file must be provided for a dataset to be included in the ACSC database. 
+
 energy
 ------
 
@@ -73,15 +73,21 @@ input-coordinates
 
 This directory should contain input coordinate files for the simulation run (or segments thereof, in the case of continuation runs).
 
+.. warning::
+    At least one input coordinates file must be provided for a dataset to be included in the ACSC database.
+
 forcefield-files
 ----------------
 
-This directory should contain force field modifcation files fir the simulation run (e.g., .ifp files for GROMACS, .itp files for GROMOS).
+This directory should contain force field modifcation files for the simulation run (e.g., .ifp files for GROMACS, .itp files for GROMOS).
 
 log
 ---
 
 This directory should contain log files for the simulation run (or segments thereof, in the case of continuation runs).
+
+.. warning::
+    At least one control or log file must be provided for a dataset to be included in the ACSC database. 
 
 reference-coordinates
 ---------------------
@@ -92,6 +98,9 @@ topology
 --------
 
 Topology files for the simulation run.
+
+.. warning::
+    At least one topology file must be provided for a dataset to be included in the ACSC database.
 
 trajectory
 ----------

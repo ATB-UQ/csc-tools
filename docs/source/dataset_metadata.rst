@@ -10,7 +10,7 @@ As mentioned in :ref:`Structuring Datasets`, the atbrepo.yaml file in each datas
     title: "This will appear as the title of the simulation on the ACSC website. Should be enclosed in quotation marks."
     notes: "This will appear as a description of the simulation on the ACSC website. Should be enclosed in quotation marks.  If the data is related to a publication, the DOI of the publication can also be included in this field."
     program: The name of the program used to carry out the simulation run. Currently supported values are AMBER, GROMACS, and GROMOS.  Only one program name per dataset should be provided.  
-    organization: The organization the uploading user is affiliated with, as outlined in "Creating an ACSC Account".  Currently supported values are bernhardt, chalmers, deplazes, krenske, malde, mduq, omara, smith, and yu.
+    organization: The organization the uploading user is affiliated with, as outlined in "Contribution Prerequisites".  Currently supported values are bernhardt, chalmers, deplazes, krenske, malde, mduq, omara, smith, and yu.
     tags: Freeform text tags for the simulation, prefixed with a hyphen. Note that some tags are prefixed with "item-", as shown below
         - replicate-[number] of [total number]
         - protein-[name of protein]
