@@ -26,7 +26,7 @@ To install csc-tools, execute the following command in a terminal:
 
 .. code-block:: console
 
-    pip install --upgrade --force-reinstall git+https://github.com/ATB-UQ/csc-validator@master
+    pip install --upgrade --force-reinstall git+https://github.com/ATB-UQ/csc-tools@master
 
 .. note::
     The :code:`--upgrade` and :code:`--force-reinstall` flags ensure that csc-tools is reinstalled in cases where a preexisting installation of csc-tools is present.
