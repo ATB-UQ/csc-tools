@@ -4,6 +4,8 @@ import sys
 import click
 import yaml
 
+config_path = pathlib.Path.home() / ".csct/csct_config.yaml"
+
 @click.command(short_help="View and modify configuration options.")
 @click.argument('name', nargs=1, required=False)
 @click.argument('value', nargs=1, required=False)
@@ -36,8 +38,6 @@ def init_config():
     """
     Initialize or reset configuration file.
     """
-
-    from csct.common import config_path
 
     config_path.parent.mkdir(parents=True, exist_ok=True)
 
@@ -95,8 +95,6 @@ def read_config():
     """
     Read configuration file.
     """
-
-    from csct.common import config_path
 
     if config_path.is_file():
         try:

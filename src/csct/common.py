@@ -5,10 +5,7 @@ import sys
 
 import click
 
-import csct
-
 ckan_url = 'https://molecular-dynamics.atb.uq.edu.au/'
-config_path = pathlib.Path(csct.__path__[0]) / "config/csct_config.yaml"
 
 print_width = 40
 
