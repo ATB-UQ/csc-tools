@@ -39,7 +39,7 @@ def init_config():
 
     from csct.common import config_path
 
-    pathlib.Path(config_path).mkdir(parents=True, exist_ok=True)
+    config_path.parent.mkdir(parents=True, exist_ok=True)
 
     try:
         with open(config_path, 'w') as config_file:
