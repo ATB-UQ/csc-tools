@@ -215,7 +215,7 @@ def export_single(dir):
                 #time.sleep(0.5)
         #click.echo("\rExporting dataset".ljust(csct.common.print_width-1, '.'), nl=False)
         #click.secho("COMPLETE", fg='green')
-        #click.secho(f"Successfully exported dataset to {tar_file}", fg='green')    
+        click.secho(f"Successfully exported dataset to {tar_file}", fg='green')    
     except:
         click.echo("\rExporting dataset".ljust(csct.common.print_width, '.'), nl=False)
         click.secho("FAILED", fg='red')
