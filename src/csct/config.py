@@ -117,8 +117,6 @@ def write_config(configuration):
     Write configuration file.
     """
 
-    from csct.common import config_path
-
     try:
         with open(config_path, 'w') as config_file:
             yaml.dump(configuration, config_file)
