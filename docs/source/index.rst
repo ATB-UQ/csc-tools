@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-ACSC - Australian Computational and Simulation Commons
+ACSC - Australasian Computational and Simulation Commons
 ======================================================
 
 The ACSC is a repository for molecular simulation data, comprising of data contributed by a network of researchers linked through Australian Research Data Commons (ARDC).
