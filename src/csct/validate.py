@@ -210,7 +210,7 @@ def export_single(dir):
             progress = tqdm(members, unit="files", bar_format='{bar:40}{percentage:3.0f}%  {desc}', ncols=80, leave=False)
             
             for member in progress:
-                tar.add(member, arcname=str(member.relative_to(dir)))
+                tar.add(member, arcname=str(member.relative_to(dir)), recursive=False)
                 progress.set_description_str(f"Compressing {member.relative_to(dir)}")
                 #time.sleep(0.5)
         #click.echo("\rExporting dataset".ljust(csct.common.print_width-1, '.'), nl=False)
