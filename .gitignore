@@ -8,6 +8,8 @@ csct_config.yaml
 config_old.py
 upload_old.py
 validate_old.py
+#include
+include
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
