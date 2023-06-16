@@ -63,6 +63,8 @@ html_static_path = ['_static']
 #favicon
 html_favicon = '_static/images/fav.ico'
 
+html_show_sourcelink = False # Hide "Show Source" link
+
 html_context = {
     "display_github": False, # Integrate GitHub
     "github_user": 'ATB-UQ', # Username
