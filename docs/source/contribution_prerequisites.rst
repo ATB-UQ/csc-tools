@@ -1,7 +1,3 @@
-*******************
-Contributor's Guide
-*******************
-
 Contribution Prerequisites
 ==========================
 

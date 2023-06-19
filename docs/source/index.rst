@@ -13,22 +13,17 @@ Whether you are interested in becoming a data contributor or simply want to lear
 .. toctree::
    :maxdepth: -1
    :caption: Getting Started
-   
-   prerequisites
-   installing_csct
-   configuring_csct
-
-.. toctree::
-   :maxdepth: 1
-   :caption: Preparing Datasets
-   
-   dataset_structure
-   dataset_metadata
 
 .. toctree::
    :maxdepth: -1
-   :caption: Processing Datasets
-
+   :caption: Contributing Data to ACSC
+   
+   inclusion_criteria
+   contribution_prerequisites
+   installing_csct
+   configuring_csct
+   dataset_structure
+   dataset_metadata
    validating
    exporting  
    uploading 
@@ -37,4 +32,4 @@ Whether you are interested in becoming a data contributor or simply want to lear
    :maxdepth: -1
    :caption: About the ACSC
 
-   contributors
+   credits
