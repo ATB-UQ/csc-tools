@@ -64,6 +64,7 @@ html_static_path = ['_static']
 html_favicon = '_static/images/fav.ico'
 
 html_show_sourcelink = False # Hide "Show Source" link
+html_show_sphinx = False # Hide "Built with Sphinx using a theme provided by Read the Docs." text
 
 html_context = {
     "display_github": False, # Integrate GitHub
