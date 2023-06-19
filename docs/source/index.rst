@@ -12,9 +12,14 @@ Whether you are interested in becoming a data contributor or simply want to lear
 
 .. toctree::
    :maxdepth: -1
-   :caption: Table of Contents
+   :caption: Getting Started
 
    getting-started
+
+.. toctree::
+   :maxdepth: -1
+   :caption: Contributing
+      
    contributing
 
 
