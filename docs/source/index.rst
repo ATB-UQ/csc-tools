@@ -4,11 +4,11 @@
    contain the root `toctree` directive.
 
 ACSC - Australasian Computational and Simulation Commons
-======================================================
+========================================================
 
-The ACSC is a repository for molecular simulation data, comprising of data contributed by a network of researchers linked through Australian Research Data Commons (ARDC).
+The ACSC Molecular Simulation Data Repository provides a means for a network of researchers linked through the Australian Research Data Commons (ARDC) to consolidate, store, and distribute high-value data derived from simulations of the dynamic behaviour of complex molecular systems.  The form of this data includes everything from single configurations to full simulation trajectories and represents research from disciplines ranging from drug design to materials science to the study of cellular components.  
 
-This document explains the procedure for contributing data to the ACSC.
+Whether you are interested in becoming a data contributor or simply want to learn how to browse and access simulation data, this guide will provide you with the information you need to start using the ACSC Molecular Simulation Data Repository.
 
 .. toctree::
    :maxdepth: -1
@@ -32,3 +32,9 @@ This document explains the procedure for contributing data to the ACSC.
    validating
    exporting  
    uploading 
+
+.. toctree::
+   :maxdepth: -1
+   :caption: About the ACSC
+
+   contributors
