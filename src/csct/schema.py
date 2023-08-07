@@ -103,6 +103,12 @@ def get_directory_structure_schema():
             'required': True,
             'type': 'string',
         },
+        'miscellaneous': {
+            'check_with': 'directory',
+            'empty': False,
+            'required': False,
+            'type': 'string',
+        },
         'reference-coordinates': {
             'check_with': 'directory',
             'empty': False,
@@ -157,6 +163,11 @@ def get_directory_contents_schema():
             'at_least_one_file': 'control',
             'empty': True,
             'required': True,
+            'type': 'dict',
+        },
+        'miscellaneous': {
+            'empty': True,
+            'required': False,
             'type': 'dict',
         },
         'reference-coordinates': {

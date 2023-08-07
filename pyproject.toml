@@ -4,7 +4,7 @@ build-backend = 'setuptools.build_meta'
 
 [project]
 name = 'csc_tools'
-version = '0.0.1b0'
+version = '0.0.1b1'
 description = "Tools for the Australian Computational and Simulation Commons"
 readme = 'README.rst'
 requires-python = '>=3.6'
