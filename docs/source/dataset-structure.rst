@@ -48,7 +48,7 @@ System_Name
 The name of the dataset directory should be a descriptive name for the simulation run.  While this is not the name that will be displayed on the ACSC website, it is the name that will be used to generate URLs pertaining to the dataset and should be used when naming all dataset files, as outlined in the template above.  
 
 .. warning::
-    Dataset directory names must be globally unique across the entire ACSC site.  Ensure that you have chosen a sufficiently descriptive name as to be unlikely to conflict with other datasets.
+    Dataset directory names must be globally unique across the entire ACSC site and contain only alphanumeric characters and the symbols _ and -.  Ensure that you have chosen a sufficiently descriptive name as to be unlikely to conflict with other datasets.
 
 atbrepo.yaml
 ------------
