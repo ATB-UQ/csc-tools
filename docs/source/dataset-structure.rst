@@ -1,3 +1,8 @@
+*******************
+Preparing Datasets
+*******************
+
+
 .. _Structuring Datasets:
 
 Structuring Datasets
@@ -21,6 +26,8 @@ The ACSC uses a standard directory structure to identify files associated with m
         |   └──System_Name_forcefield-files.fileextension
         ├── log
         |   └──System_Name_log_00001.fileextension
+        ├── miscellaneous
+        |   └──System_Name_miscellaneous-files.fileextension
         ├── reference-coordinates
         |   └──System_Name_reference-coordinates.fileextension
         ├── topology
@@ -33,7 +40,7 @@ In all cases listed above :code:`.fileextension` should be replaced with the app
 Files containing :code:`00001` are file types which can be sequentially numbered to indicate continuation runs.  
 
 .. warning::
-    All top level directories (control, energy, etc.) must be present, even if no files of a given type are provided.  No other files or directories, hidden or otherwise, are permitted at the top level.  Ensure that no hidden files are present with :code:`ls -a`. 
+    All top level directories (control, energy, etc.) must be present, even if no files of a given type are provided.  The exceptions to this are the forcefield-files and miscellaneous directories, which are optional.  No other files or directories, hidden or otherwise, are permitted at the top level.  Ensure that no hidden files are present with :code:`ls -a`. 
 
 System_Name
 -----------
@@ -41,7 +48,7 @@ System_Name
 The name of the dataset directory should be a descriptive name for the simulation run.  While this is not the name that will be displayed on the ACSC website, it is the name that will be used to generate URLs pertaining to the dataset and should be used when naming all dataset files, as outlined in the template above.  
 
 .. warning::
-    Dataset directory names must be globally unique across the entire ACSC site.  Ensure that you have chosen a sufficiently descriptive name as to be unlikely to conflict with other datasets.
+    Dataset directory names must be globally unique across the entire ACSC site and contain only alphanumeric characters and the symbols _ and -.  Ensure that you have chosen a sufficiently descriptive name as to be unlikely to conflict with other datasets.
 
 atbrepo.yaml
 ------------
@@ -86,6 +93,11 @@ This directory should contain log files for the simulation run (or segments ther
 
 .. note::
     At least one control or log file must be provided for a dataset to be included in the ACSC database. 
+
+miscellaneous
+-------------
+
+This directory should contain files that do not fit into any of the other categories (e.g., GROMACS .ndx files).
 
 reference-coordinates
 ---------------------

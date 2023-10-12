@@ -18,7 +18,7 @@
 # -- Project information -----------------------------------------------------
 
 project = 'ACSC'
-copyright = '2022, ACSC'
+copyright = '2023, ACSC'
 author = 'Thomas Lee, Sharif Nada, Zihan Zhou'
 
 # The full version, including alpha/beta/rc tags
@@ -59,12 +59,15 @@ html_theme_options = {
 html_static_path = ['_static']
 
 #logo
-html_logo = '_static/images/logo.png'
+#html_logo = '_static/images/logo.png'
 #favicon
 html_favicon = '_static/images/fav.ico'
 
+html_show_sourcelink = False # Hide "Show Source" link
+html_show_sphinx = False # Hide "Built with Sphinx using a theme provided by Read the Docs." text
+
 html_context = {
-    "display_github": True, # Integrate GitHub
+    "display_github": False, # Integrate GitHub
     "github_user": 'ATB-UQ', # Username
     "github_repo": 'csc-tools', # Repo name
     "github_version": 'master', # Version

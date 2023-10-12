@@ -1,6 +1,7 @@
 import os
 
 import cerberus
+import ckanapi.errors as errors
 
 class ConfigValidator(cerberus.Validator):
     def _check_with_writable_directory(self, field, value):
@@ -14,8 +15,20 @@ class ConfigValidator(cerberus.Validator):
         try:
             with csct.remote.Session(apikey=get_config('authorization')):
                 pass
+        except(errors.NotAuthorized):
+             self._error(field, "invalid API token")
+        except(errors.ValidationError):
+            self._error(field, "validation error")
+        except(errors.SearchError):
+            self._error(field, "search error")
+        except(errors.SearchIndexError):
+            self._error(field, "search index error")
+        except(errors.SearchQueryError):
+            self._error(field, "search query error")
+        except(errors.NotFound):
+            self._error(field, "not found error")
         except:
-            self._error(field, "invalid API token")
+            self._error(field, "unknown error while validating API token")
 
 class MetadataValidator(cerberus.Validator):
 
