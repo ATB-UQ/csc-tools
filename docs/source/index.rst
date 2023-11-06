@@ -16,8 +16,10 @@ Whether you are interested in becoming a data contributor or simply want to lear
 
    getting-started
 
-.. include:: contributing.rst
+.. toctree::
+   :maxdepth: -1
 
+   contributing
 
 .. toctree::
    :maxdepth: -1
