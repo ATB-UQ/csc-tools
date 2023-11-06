@@ -17,10 +17,18 @@ Whether you are interested in becoming a data contributor or simply want to lear
    getting-started
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: -1
    :caption: Contributing
-      
-   test <contributing>
+   
+   inclusion-criteria
+   contribution-prerequisites
+   installing-csct
+   configuring-csct
+   dataset-structure
+   dataset-metadata
+   validating
+   exporting  
+   uploading 
 
 .. toctree::
    :maxdepth: -1
