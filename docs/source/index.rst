@@ -17,8 +17,7 @@ Whether you are interested in becoming a data contributor or simply want to lear
    getting-started
 
 .. toctree::
-   :maxdepth: 1
-   :caption: 
+   :maxdepth: -1
       
    contributing
 
