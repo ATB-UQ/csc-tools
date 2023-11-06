@@ -20,7 +20,7 @@ Whether you are interested in becoming a data contributor or simply want to lear
    :maxdepth: 2
    :caption: Contributing
       
-   contributing
+   test <contributing>
 
 .. toctree::
    :maxdepth: -1
