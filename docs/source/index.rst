@@ -27,4 +27,5 @@ For a list of frequently asked questions, please see the :ref:`FAQ <FAQ>`.
    :maxdepth: -1
    :caption: About the ACSC
 
+   faq
    credits
