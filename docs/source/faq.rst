@@ -26,7 +26,7 @@ The ACSC selects datasets for inclusion in the Molecular Simulation Repository a
 I have data that meets the inclusion criteria.  How can I submit it to the repository?
 --------------------------------------------------------------------------------------
 
-The process for submitting datasets to the Molecular Simulation Repository is outlined in :ref:`Contributing`.
+The process for submitting datasets to the Molecular Simulation Repository is outlined :ref:`here <For Data Contributors>`.
 
 I have a question that is not answered here.  How can I contact the ACSC?
 -------------------------------------------------------------------------
