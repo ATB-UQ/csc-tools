@@ -10,11 +10,24 @@ The ACSC Molecular Simulation Data Repository provides a means for a network of 
 
 Whether you are interested in becoming a data contributor or simply want to learn how to browse and access simulation data, this guide will provide you with the information you need to start using the ACSC Molecular Simulation Data Repository.  
 
-For a list of frequently asked questions, please see the :ref:`FAQ <FAQ>`.
+For a list of frequently asked questions, please see the :ref:`FAQ`.
 
 .. toctree::
    :maxdepth: -1
-   :caption: Documentation
+   :caption: Using the ACSC Website
+
+   website/overview
+   website/login
+   website/dashboard
+   website/account
+   website/datasets
+   website/organizations
+   website/collections
+   
+
+.. toctree::
+   :maxdepth: -1
+   :caption: Using CSC-Tools
 
    getting-started
 

@@ -66,3 +66,9 @@
 .highlight {
     background: #fff4ca;
 }
+
+/* hide the copyright content in the Sphinx RTD theme*/
+div[role=contentinfo] {
+	visibility: hidden;
+	position: relative;
+}
