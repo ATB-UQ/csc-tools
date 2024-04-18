@@ -15,6 +15,10 @@ def print_help():
     ctx.exit()
 
 def find_directories(dirs):
+
+    if not dirs: #default to cwd if no directories supplied
+        click.echo("No directory paths supplied.  Searching for datasets in current working directory.")
+        dirs = ['.']    
     found_dirs = set()
     for dir in dirs:
         found_dirs.update(x[0] for x in os.walk(pathlib.Path(dir).resolve()) \

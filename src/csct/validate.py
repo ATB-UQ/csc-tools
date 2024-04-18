@@ -21,10 +21,6 @@ def validate(all, export, config, metadata, structure, files, dirs):
     """
     import csct.common
 
-    if not dirs: #default to cwd if no directories supplied
-        click.echo("No directory paths supplied.  Searching for datasets in current working directory.")
-        dirs = ['.']
-    
     found_dirs = csct.common.find_directories(dirs)
 
     if all or (config == metadata == structure == files): #process flags
