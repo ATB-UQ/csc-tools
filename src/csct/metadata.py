@@ -1,6 +1,5 @@
 import click
 
-
 @click.command(short_help="View and edit dataset metadata.")
 @click.argument('dirs', nargs=-1, type=click.Path(exists=True, file_okay=False))
 @click.option('-a', '--all', is_flag=True, help="Validate all dataset properties. [default]")
@@ -11,11 +10,10 @@ import click
 @click.option('-f', '--files', is_flag=True, help="Validate dataset subdirectory structure and files.")
 def metadata(add, remove, replace, view, dirs):
     """
-    View and modify configuration options.
+    View and modify metadata.
 
     \b
-    NAME    Name of configuration variable.
-    VALUE   Desired value of variable.
-            [default: show current value of variable]
+    DIRS    Directories to recursively scan for datasets. 
+            [default: current working directory]
     """
     pass
