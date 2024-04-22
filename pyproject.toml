@@ -41,6 +41,3 @@ docs = [
 
 [project.scripts]
 csct = 'csct.__main__:cli'
-
-[tool.setuptools.packages]
-find = {}
