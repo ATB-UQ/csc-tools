@@ -95,21 +95,11 @@ def validate_metadata(dir):
         click.secho("Metadata validation requires validated configuration options.", fg='yellow')
         return False
     else:
-        if (pathlib.Path(dir) / "atbrepo.yaml").exists() and (pathlib.Path(dir) / "atbrepo.yml").exists(): #check for duplicate metadata files
+        metadata, metadata_error = csct.common.read_metadata_file(dir)
+        if metadata_error:
             click.secho("FAILED", fg='red')
-            click.secho(f"Two metadata files found in path.  Only one metadata file per dataset is supported.", fg='red')
+            click.secho(metadata_error, fg='red')
             return False
-        else:
-            metadata_path = pathlib.Path(dir) / "atbrepo.yaml" #check for this name first
-            if not metadata_path.exists(): #if it's not there...
-                metadata_path = pathlib.Path(dir) / "atbrepo.yml" #check for the alternative name
-            try: 
-                with open(metadata_path, "r") as c: #try to open the metadata file
-                    metadata = yaml.safe_load(c)
-            except: 
-                click.secho("FAILED", fg='red')
-                click.secho(f"Could not open metadata file in path {metadata_path}", fg='red')
-                return False
         
         validator = csct.validators.MetadataValidator(csct.schema.get_metadata_schema())
         validator.validate(metadata)

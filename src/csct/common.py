@@ -2,6 +2,7 @@
 import os
 import pathlib
 import sys
+import yaml
 
 import click
 
@@ -13,6 +14,22 @@ def print_help():
     ctx = click.get_current_context()
     click.echo(ctx.get_help())
     ctx.exit()
+
+def read_metadata_file(dir):
+
+    if (pathlib.Path(dir) / "atbrepo.yaml").exists() and (pathlib.Path(dir) / "atbrepo.yml").exists():
+        return None, f"Two metadata files found in path.  Only one metadata file per dataset is supported."
+    else:
+        metadata_path = pathlib.Path(dir) / "atbrepo.yaml" #check for this name first
+        if not metadata_path.exists(): #if it's not there...
+            metadata_path = pathlib.Path(dir) / "atbrepo.yml" #check for the alternative name
+        try: 
+            with open(metadata_path, "r") as c: #try to open the metadata file
+                metadata = yaml.safe_load(c)
+                return metadata, None
+        except yaml.YAMLError:
+            return None, f"Could not open metadata file in path {metadata_path}."
+            
 
 def find_directories(dirs):
 

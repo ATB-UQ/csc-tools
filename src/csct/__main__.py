@@ -2,7 +2,7 @@ import importlib.metadata
 
 import click
 
-import csct.config, csct.metadata.metadata, csct.validate
+import csct.config, csct.metadata, csct.validate
 
 __version__ = importlib.metadata.version('csc_tools')
 
@@ -14,7 +14,7 @@ def cli():
 
 #top-level commands
 cli.add_command(csct.config.config)
-cli.add_command(csct.metadata.metadata.metadata)
+cli.add_command(csct.metadata.metadata)
 cli.add_command(csct.validate.validate)
 
 if __name__ == "__main__":
