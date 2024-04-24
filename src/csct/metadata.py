@@ -1,5 +1,4 @@
 import click
-import sys
 
 @click.group(short_help="View and edit dataset metadata.")
 def metadata():
@@ -11,16 +10,16 @@ def metadata():
 @click.command(short_help="Add a new metadata field.")
 @click.argument('name', required=True, type=str)
 @click.argument('dirs', nargs=-1, type=click.Path(exists=True, file_okay=False))
-def add(name, value, dirs):
+def add(name, dirs):
     """
     Add a new metadata field.
 
     \b
     NAME    The metadata field name to be created.
-    DIRS    Directories to recursively scan for datasets. 
+    DIRS    Directories to recursively scan for metadata files. 
             [default: current working directory]
     """
-    print(name, value, dirs)
+    print(name, dirs)
 
 @click.command(short_help="Add a value to an existing metadata field.")
 @click.argument('name', required=True, type=str)
@@ -32,68 +31,84 @@ def assign(name, value, dirs):
 
     \b
     NAME    The metadata field name to which a value will be added.
-    VALUE   The value to be added to the supplied field name.
-    DIRS    Directories to recursively scan for datasets. 
+    VALUE   The value to be added.
+    DIRS    Directories to recursively scan for metadata files. 
             [default: current working directory]
     """
     print(name, value, dirs)
 
-@click.command(short_help="Modify an existing metadata value.")
+@click.command(short_help="Modify a metadata value.")
 @click.argument('name', required=True, type=str)
-@click.argument('old', required=True, type=str)
-@click.argument('new', required=True, type=str)
+@click.argument('oldvalue', required=True, type=str)
+@click.argument('newvalue', required=True, type=str)
 @click.argument('dirs', nargs=-1, type=click.Path(exists=True, file_okay=False))
-def modify(name, value, dirs):
+def modify(name, oldvalue, newvalue, dirs):
     """
     Modify the value of an existing metadata field.
 
     \b
-    NAME    The metadata field to be modified.
-    OLD     The metadata value to be replaced.
-    NEW     The new metadata value to be added.
-    DIRS    Directories to recursively scan for datasets. 
-            [default: current working directory]
+    NAME        The metadata field to be modified.
+    OLDVALUE    The metadata value to be replaced.
+    NEWVALUE    The new metadata value to be added.
+    DIRS        Directories to recursively scan for metadata files. 
+                [default: current working directory]
     """
-    pass
+    print(name, oldvalue, newvalue, dirs)
 
-@click.command(short_help="Remove existing metadata values or fields. ")
+@click.command(short_help="Remove existing metadata values or fields.")
 @click.argument('name', required=True, nargs=1)
-@click.option('-r', '--remove-field', is_flag=True, help="If specified, the metadata field itself will also be removed.")
-@click.option('-v', '--value', multiple=True, type=str, help="Specify a specific value to be removed.  May be used multiple times to specify multiple values.")
+@click.option('-v', '--value', multiple=True, type=str, help="Specify a value to be removed.  May be used multiple times to specify multiple values.  If not specified, all values associated with the supplied field name will be removed.")
+@click.option('-r', '--remove-field', is_flag=True, help="If specified, the metadata field itself will be removed, in addition to all of its associated values.")
 @click.argument('dirs', nargs=-1, type=click.Path(exists=True, file_okay=False))
-def remove(name, value, dirs):
+def remove(name, remove_field, value, dirs):
     """
     Remove existing metadata values or fields.  
-    
-    If --value is not specified, all values associated with the field name will be removed.
 
     \b
     NAME    The metadata field name from which values will be removed.
-    DIRS    Directories to recursively scan for datasets. 
+    DIRS    Directories to recursively scan for metadata files. 
             [default: current working directory]
     """
-    pass
+    print(name, remove_field, value, dirs)
 
 @click.command(short_help="Rename an existing metadata field, leaving its values intact.")
-@click.argument('name', required=True, type=str)
-@click.argument('old', required=True, type=str)
-@click.argument('new', required=True, type=str)
+@click.argument('oldname', required=True, type=str)
+@click.argument('newname', required=True, type=str)
 @click.argument('dirs', nargs=-1, type=click.Path(exists=True, file_okay=False))
-def rename(name, value, dirs):
+def rename(oldname, newname, dirs):
     """
     Rename an existing metadata field, leaving its values intact.
 
     \b
-    OLD     The metadata field name to be replaced.
-    NEW     The new metadata field name.
-    DIRS    Directories to recursively scan for datasets. 
-            [default: current working directory]
+    OLDNAME    The metadata field name to be replaced.
+    NEWNAME    The new metadata field name.
+    DIRS       Directories to recursively scan for metadata files. 
+               [default: current working directory]
     """
     pass
 
+@click.command(short_help="View the metadata of a dataset or datasets.")
+@click.option('-d', '--by-dataset', 'view_type', flag_value='by_dataset', default=True, help="View metadata field names and values, listing the metadata for each dataset sequentially. [default]")
+@click.option('-m', '--by-metadata', 'view_type', flag_value='by_value', help="View metadata of datasets grouped by metadata value, listing the datasets matching each name and value combination.")
+@click.option('-c', '--count', 'view_type', flag_value='count', help="View a count of datasets matching each metadata name and value combination.")
+@click.option('-n', '--name', type=str, help="Only display results matching a specified metadata field name.")
+@click.option('-v', '--value', type=str, help="Only display results matching a specified metadata field value.")
+@click.argument('dirs', nargs=-1, type=click.Path(exists=True, file_okay=False))
+def view(view_type, name, value, dirs):
+    """
+    View the metadata of a dataset or datasets.
+
+    \b
+    OLDNAME    The metadata field name to be replaced.
+    NEWNAME    The new metadata field name.
+    DIRS       Directories to recursively scan for metadata files. 
+               [default: current working directory]
+    """
+    print(name, value, dirs, view_type)    
 
 metadata.add_command(add)
 metadata.add_command(assign)
 metadata.add_command(modify)
 metadata.add_command(remove)
 metadata.add_command(rename)
+metadata.add_command(view)
