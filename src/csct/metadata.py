@@ -1,5 +1,7 @@
 import click
 
+import csct.common
+
 @click.group(short_help="View and edit dataset metadata.")
 def metadata():
     """
@@ -91,20 +93,19 @@ def rename(oldname, newname, dirs):
 @click.option('-d', '--by-dataset', 'view_type', flag_value='by_dataset', default=True, help="View metadata field names and values, listing the metadata for each dataset sequentially. [default]")
 @click.option('-m', '--by-metadata', 'view_type', flag_value='by_value', help="View metadata of datasets grouped by metadata value, listing the datasets matching each name and value combination.")
 @click.option('-c', '--count', 'view_type', flag_value='count', help="View a count of datasets matching each metadata name and value combination.")
-@click.option('-n', '--name', type=str, help="Only display results matching a specified metadata field name.")
-@click.option('-v', '--value', type=str, help="Only display results matching a specified metadata field value.")
+@click.option('-n', '--name', type=str, multiple=True, help="Only display results matching a specified metadata field name.  Can be used multiple times to specify multiple names.")
+@click.option('-v', '--value', type=str, multiple=True, help="Only display results matching a specified metadata field value. Can be used multiple times to specify multiple values.")
 @click.argument('dirs', nargs=-1, type=click.Path(exists=True, file_okay=False))
 def view(view_type, name, value, dirs):
     """
     View the metadata of a dataset or datasets.
 
     \b
-    OLDNAME    The metadata field name to be replaced.
-    NEWNAME    The new metadata field name.
     DIRS       Directories to recursively scan for metadata files. 
                [default: current working directory]
     """
-    print(name, value, dirs, view_type)    
+    print(name, value, dirs, view_type)   
+    found_dirs = csct.common.find_directories(dirs)
 
 metadata.add_command(add)
 metadata.add_command(assign)

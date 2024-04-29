@@ -1,8 +1,9 @@
 import pathlib
 import sys
-
 import click
 import yaml
+
+import csct.common 
 
 config_path = pathlib.Path.home() / ".csct/csct_config.yaml"
 
@@ -20,8 +21,6 @@ def config(init, list, name, value):
     VALUE   Desired value of variable.
             [default: show current value of variable]
     """
-    
-    from csct.common import print_help
 
     if init and not list and not (name or value):
         init_config()
@@ -32,7 +31,7 @@ def config(init, list, name, value):
     elif name and value and not init:
         set_config_single(name, value)    
     else:
-        print_help()
+        csct.common.print_help()
 
 def init_config():
     """

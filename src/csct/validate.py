@@ -2,6 +2,7 @@ import pathlib
 
 import click
 import yaml
+import csct.common
 
 @click.command(short_help="Validate dataset metadata and contents.")
 @click.argument('dirs', nargs=-1, type=click.Path(exists=True, file_okay=False))
@@ -19,12 +20,11 @@ def validate(all, export, config, metadata, structure, files, dirs):
     DIRS    Directories to recursively scan for datasets. 
             [default: current working directory]
     """
-    import csct.common
-
-    found_dirs = csct.common.find_directories(dirs)
-
+    
     if all or (config == metadata == structure == files): #process flags
         config = True; metadata = True; structure = True; files = True
+
+    found_dirs = csct.common.find_directories(dirs)
     
     for dir in found_dirs:
         if validate_single(config, metadata, structure, files, dir) and (config == metadata == structure == files) and export:
