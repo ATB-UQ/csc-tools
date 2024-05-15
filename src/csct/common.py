@@ -1,7 +1,6 @@
 
 import os
 import pathlib
-import sys
 import yaml
 
 import click
@@ -48,5 +47,5 @@ def find_directories(dirs):
     else:
         click.secho("No datasets could be located in the supplied paths:", fg='red')
         click.echo("\n".join(str(pathlib.Path(dir).resolve()) for dir in dirs))
-        sys.exit()            
+        exit()            
     return found_dirs
