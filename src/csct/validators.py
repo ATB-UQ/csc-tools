@@ -62,6 +62,16 @@ class MetadataValidator(cerberus.Validator):
         if not value in user_organizations:
             self._error(field, f"authenticated user is not a member of {value}")  
 
+    def _check_with_tag_allowed_characters(self, field, value):
+        
+        import re
+
+        pattern = re.compile(r'^[a-zA-Z0-9 ._-]+$')
+
+        if not pattern.match(value):
+            self._error(value, "must contain only alphanumeric characters, spaces, hyphens, underscores, and dots")
+        
+
 class DirectoryValidator(cerberus.Validator):
 
     def _check_with_file(self, field, value):
