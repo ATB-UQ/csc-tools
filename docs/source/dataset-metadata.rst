@@ -62,3 +62,6 @@ A few example metadata files are included for reference:
         - replicate-1 of 3
         - peptide-alpha-helical peptide AP
         - peptide
+
+.. note::
+    Tags can only contain alphanumeric characters, spaces (" "), hyphens ("-"), underscores ("_") or dots (".").
