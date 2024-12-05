@@ -58,7 +58,7 @@ def get_metadata_schema():
         'tags': {
             'empty': False,
             'required': True,            
-            'schema': {'type': 'string'},            
+            'schema': {'type': 'string', 'check_with': ('tag_allowed_characters')},            
             'type': 'list',
         },
     }
