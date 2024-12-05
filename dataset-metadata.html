@@ -1,0 +1,186 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Structuring Metadata &mdash; ACSC 0.0.1b0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme_overrides.css?v=3e214831" />
+
+  
+    <link rel="shortcut icon" href="_static/fav.ico"/>
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=cc386672"></script>
+      <script src="_static/doctools.js?v=9a2dae69"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Processing Datasets" href="validating.html" />
+    <link rel="prev" title="Preparing Datasets" href="dataset-structure.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html">
+            
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Using CSC-Tools</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="accessing.html">Accessing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="depositing.html">Depositing</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="contributing.html">For Data Contributors</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="inclusion-criteria.html">Inclusion Criteria</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contribution-prerequisites.html">Contribution Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installing-csct.html">Installing csc-tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuring-csct.html">Configuring csc-tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dataset-structure.html">Preparing Datasets</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Structuring Metadata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="validating.html">Processing Datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exporting.html">Exporting Datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uploading.html">Uploading Datasets</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">About the ACSC</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="credits.html">List of Contributors</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ACSC</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="contributing.html">For Data Contributors</a></li>
+      <li class="breadcrumb-item active">Structuring Metadata</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="structuring-metadata">
+<span id="id1"></span><h1>Structuring Metadata<a class="headerlink" href="#structuring-metadata" title="Link to this heading"></a></h1>
+<p>As mentioned in <a class="reference internal" href="dataset-structure.html#structuring-datasets"><span class="std std-ref">Structuring Datasets</span></a>, the atbrepo.yaml file in each dataset directory contains the metadata necessary to describe the dataset in the ACSC database.  This metadata must be provided by the user in <a class="reference external" href="https://yaml.org/">YAML</a> format according to the following template:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;This</span><span class="nv"> </span><span class="s">will</span><span class="nv"> </span><span class="s">appear</span><span class="nv"> </span><span class="s">as</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">title</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">simulation</span><span class="nv"> </span><span class="s">on</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">ACSC</span><span class="nv"> </span><span class="s">website.</span><span class="nv"> </span><span class="s">Should</span><span class="nv"> </span><span class="s">be</span><span class="nv"> </span><span class="s">enclosed</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">quotation</span><span class="nv"> </span><span class="s">marks.&quot;</span>
+<span class="nt">notes</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;This</span><span class="nv"> </span><span class="s">will</span><span class="nv"> </span><span class="s">appear</span><span class="nv"> </span><span class="s">as</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">description</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">simulation</span><span class="nv"> </span><span class="s">on</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">ACSC</span><span class="nv"> </span><span class="s">website.</span><span class="nv"> </span><span class="s">Should</span><span class="nv"> </span><span class="s">be</span><span class="nv"> </span><span class="s">enclosed</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">quotation</span><span class="nv"> </span><span class="s">marks.</span><span class="nv">  </span><span class="s">If</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">data</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">related</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">publication,</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">DOI</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">publication</span><span class="nv"> </span><span class="s">can</span><span class="nv"> </span><span class="s">also</span><span class="nv"> </span><span class="s">be</span><span class="nv"> </span><span class="s">included</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">this</span><span class="nv"> </span><span class="s">field.&quot;</span>
+<span class="nt">program</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">The name of the program used to carry out the simulation run. Currently supported values are AMBER, GROMACS, and GROMOS.  Only one program name per dataset should be provided.</span>
+<span class="nt">organization</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">The organization the uploading user is affiliated with, as outlined in &quot;Contribution Prerequisites&quot;.  Currently supported values are bernhardt, chalmers, deplazes, krenske, malde, mduq, omara, smith, and yu.</span>
+<span class="nt">tags</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Freeform text tags for the simulation, prefixed with a hyphen. Note that some tags are prefixed with &quot;item-&quot;, as shown below</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">- replicate-[number] of [total number]</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">- protein-[name of protein]</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">- peptide-[name of peptide]</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">- lipid-[name of lipid]</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">- PDB-[pdb code]</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">- solvent-[name of solvent]</span>
+</pre></div>
+</div>
+<p>A few example metadata files are included for reference:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;D6PC</span><span class="nv"> </span><span class="s">lipid</span><span class="nv"> </span><span class="s">bilayer&#39;</span>
+<span class="nt">notes</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;A</span><span class="nv"> </span><span class="s">lipid</span><span class="nv"> </span><span class="s">bilayer</span><span class="nv"> </span><span class="s">consisting</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">512</span><span class="nv"> </span><span class="s">D6PC</span><span class="nv"> </span><span class="s">molecules.</span><span class="nv"> </span><span class="s">Initiated</span><span class="nv"> </span><span class="s">from</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">smaller</span><span class="nv"> </span><span class="s">128-lipid</span><span class="nv"> </span><span class="s">DLPC</span><span class="nv"> </span><span class="s">equilibrated</span><span class="nv"> </span><span class="s">bilayer</span><span class="nv"> </span><span class="s">with</span><span class="nv"> </span><span class="s">trimmed</span><span class="nv"> </span><span class="s">tails.</span><span class="nv"> </span><span class="s">Pore</span><span class="nv"> </span><span class="s">spontaneously</span><span class="nv"> </span><span class="s">form</span><span class="nv"> </span><span class="s">during</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">simulation.&#39;</span>
+<span class="nt">program</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GROMACS</span>
+<span class="nt">organization</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mduq</span>
+<span class="nt">tags</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lipid-D6PC</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lipid bilayer</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GROMOS</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">54A7</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">solvent-H2O</span>
+</pre></div>
+</div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Hen</span><span class="nv"> </span><span class="s">egg-white</span><span class="nv"> </span><span class="s">lysozyme&#39;</span>
+<span class="nt">notes</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Hen</span><span class="nv"> </span><span class="s">egg-white</span><span class="nv"> </span><span class="s">lysozyme</span><span class="nv"> </span><span class="s">protein</span><span class="nv"> </span><span class="s">with</span><span class="nv"> </span><span class="s">GROMOS</span><span class="nv"> </span><span class="s">54A7</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">AMBER</span><span class="nv"> </span><span class="s">(replicate</span><span class="nv"> </span><span class="s">1</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">3).</span><span class="nv">  </span><span class="s">Initial</span><span class="nv"> </span><span class="s">structure</span><span class="nv"> </span><span class="s">obtained</span><span class="nv"> </span><span class="s">from</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">Protein</span><span class="nv"> </span><span class="s">Data</span><span class="nv"> </span><span class="s">Bank</span><span class="nv"> </span><span class="s">(PDB).</span><span class="nv"> </span><span class="s">PDB</span><span class="nv"> </span><span class="s">ID</span><span class="nv"> </span><span class="s">-</span><span class="nv"> </span><span class="s">1AKI,</span><span class="nv"> </span><span class="s">URL</span><span class="nv"> </span><span class="s">-</span><span class="nv">  </span><span class="s">https://www.rcsb.org/structure/1AKI</span><span class="nv"> </span><span class="s">&quot;</span>
+<span class="nt">program</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AMBER</span>
+<span class="nt">organization</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mduq</span>
+<span class="nt">tags</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GROMOS</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">54A7</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">solvent-H2O</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">replicate-1 of 3</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PDB-1AKI</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">protein-hen egg-white lysozyme</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">protein</span>
+</pre></div>
+</div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Alpha-helical</span><span class="nv"> </span><span class="s">peptide</span><span class="nv"> </span><span class="s">AP&#39;</span>
+<span class="nt">notes</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Alpha-helical</span><span class="nv"> </span><span class="s">peptide</span><span class="nv"> </span><span class="s">AP</span><span class="nv"> </span><span class="s">with</span><span class="nv"> </span><span class="s">GROMOS</span><span class="nv"> </span><span class="s">54A7</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">GROMOS</span><span class="nv"> </span><span class="s">(replicate</span><span class="nv"> </span><span class="s">1</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">3).&#39;</span>
+<span class="nt">program</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GROMOS</span>
+<span class="nt">organization</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mduq</span>
+<span class="nt">tags</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GROMOS</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">54A7</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">solvent-H2O</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">replicate-1 of 3</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">peptide-alpha-helical peptide AP</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">peptide</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Tags can only contain alphanumeric characters, spaces (” “), hyphens (“-“), underscores (“_”) or dots (“.”).</p>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="dataset-structure.html" class="btn btn-neutral float-left" title="Preparing Datasets" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="validating.html" class="btn btn-neutral float-right" title="Processing Datasets" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, ACSC.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

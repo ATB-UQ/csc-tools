@@ -1,0 +1,247 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Preparing Datasets &mdash; ACSC 0.0.1b0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme_overrides.css?v=3e214831" />
+
+  
+    <link rel="shortcut icon" href="_static/fav.ico"/>
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=cc386672"></script>
+      <script src="_static/doctools.js?v=9a2dae69"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Structuring Metadata" href="dataset-metadata.html" />
+    <link rel="prev" title="Configuring csc-tools" href="configuring-csct.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html">
+            
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Using CSC-Tools</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="accessing.html">Accessing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="depositing.html">Depositing</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="contributing.html">For Data Contributors</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="inclusion-criteria.html">Inclusion Criteria</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contribution-prerequisites.html">Contribution Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installing-csct.html">Installing csc-tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuring-csct.html">Configuring csc-tools</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Preparing Datasets</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#structuring-datasets">Structuring Datasets</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#system-name">System_Name</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#atbrepo-yaml">atbrepo.yaml</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#control">control</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#energy">energy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#final-coordinates">final-coordinates</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#input-coordinates">input-coordinates</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#forcefield-files">forcefield-files</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#log">log</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#miscellaneous">miscellaneous</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#reference-coordinates">reference-coordinates</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#topology">topology</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#trajectory">trajectory</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dataset-metadata.html">Structuring Metadata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="validating.html">Processing Datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exporting.html">Exporting Datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uploading.html">Uploading Datasets</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">About the ACSC</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="credits.html">List of Contributors</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ACSC</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="contributing.html">For Data Contributors</a></li>
+      <li class="breadcrumb-item active">Preparing Datasets</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="preparing-datasets">
+<h1>Preparing Datasets<a class="headerlink" href="#preparing-datasets" title="Link to this heading"></a></h1>
+<section id="structuring-datasets">
+<span id="id1"></span><h2>Structuring Datasets<a class="headerlink" href="#structuring-datasets" title="Link to this heading"></a></h2>
+<p>The ACSC uses a standard directory structure to identify files associated with molecular dynamics simulations.  Each dataset submitted to the ACSC must conform to the following directory structure:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>└──System_Name
+    ├── atbrepo.yaml
+    ├── control
+    |   └──System_Name_control_00001.fileextension
+    ├── energy
+    |   └──System_Name_energy_00001.fileextension
+    ├── final-coordinates
+    |   └──System_Name_final-coordinates_00001.fileextension
+    ├── input-coordinates
+    |   └──System_Name_input-coordinates_00001.fileextension
+    ├── forcefield-files
+    |   └──System_Name_forcefield-files.fileextension
+    ├── log
+    |   └──System_Name_log_00001.fileextension
+    ├── miscellaneous
+    |   └──System_Name_miscellaneous-files.fileextension
+    ├── reference-coordinates
+    |   └──System_Name_reference-coordinates.fileextension
+    ├── topology
+    |   └──System_Name_topology.fileextension
+    └── trajectory
+        └──System_Name_trajectory_00001.fileextension
+</pre></div>
+</div>
+<p>In all cases listed above <code class="code docutils literal notranslate"><span class="pre">.fileextension</span></code> should be replaced with the appropriate file extension for the given file type.  In most cases, no modification of the file extension should be necessary on the part of the user.</p>
+<p>Files containing <code class="code docutils literal notranslate"><span class="pre">00001</span></code> are file types which can be sequentially numbered to indicate continuation runs.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>All top level directories (control, energy, etc.) must be present, even if no files of a given type are provided.  The exceptions to this are the forcefield-files and miscellaneous directories, which are optional.  No other files or directories, hidden or otherwise, are permitted at the top level.  Ensure that no hidden files are present with <code class="code docutils literal notranslate"><span class="pre">ls</span> <span class="pre">-a</span></code>.</p>
+</div>
+<section id="system-name">
+<h3>System_Name<a class="headerlink" href="#system-name" title="Link to this heading"></a></h3>
+<p>The name of the dataset directory should be a descriptive name for the simulation run.  While this is not the name that will be displayed on the ACSC website, it is the name that will be used to generate URLs pertaining to the dataset and should be used when naming all dataset files, as outlined in the template above.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Dataset directory names must be globally unique across the entire ACSC site and contain only alphanumeric characters and the symbols _ and -.  Ensure that you have chosen a sufficiently descriptive name as to be unlikely to conflict with other datasets.</p>
+</div>
+</section>
+<section id="atbrepo-yaml">
+<h3>atbrepo.yaml<a class="headerlink" href="#atbrepo-yaml" title="Link to this heading"></a></h3>
+<p>This is the metadata file for the dataset, the contents of which will be explained <a class="reference internal" href="dataset-metadata.html#structuring-metadata"><span class="std std-ref">in a later section</span></a>.</p>
+</section>
+<section id="control">
+<h3>control<a class="headerlink" href="#control" title="Link to this heading"></a></h3>
+<p>This directory should contain control/parameter/settings files for the simulation run (or segments thereof, in the case of continuation runs) (e.g., .mdp files for GROMACS, .imd files for GROMOS, .mdin files for AMBER).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>At least one control or log file must be provided for a dataset to be included in the ACSC database.</p>
+</div>
+</section>
+<section id="energy">
+<h3>energy<a class="headerlink" href="#energy" title="Link to this heading"></a></h3>
+<p>This directory should contain energy trajectory files for the simulation run (or segments thereof, in the case of continuation runs).</p>
+</section>
+<section id="final-coordinates">
+<h3>final-coordinates<a class="headerlink" href="#final-coordinates" title="Link to this heading"></a></h3>
+<p>This directory should contain output coordinate files for the simulation run (or segments thereof, in the case of continuation runs).</p>
+</section>
+<section id="input-coordinates">
+<h3>input-coordinates<a class="headerlink" href="#input-coordinates" title="Link to this heading"></a></h3>
+<p>This directory should contain input coordinate files for the simulation run (or segments thereof, in the case of continuation runs).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>At least one input coordinates file must be provided for a dataset to be included in the ACSC database.</p>
+</div>
+</section>
+<section id="forcefield-files">
+<h3>forcefield-files<a class="headerlink" href="#forcefield-files" title="Link to this heading"></a></h3>
+<p>This directory should contain force field modifcation files for the simulation run (e.g., .ifp files for GROMACS, .itp files for GROMOS).</p>
+</section>
+<section id="log">
+<h3>log<a class="headerlink" href="#log" title="Link to this heading"></a></h3>
+<p>This directory should contain log files for the simulation run (or segments thereof, in the case of continuation runs).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>At least one control or log file must be provided for a dataset to be included in the ACSC database.</p>
+</div>
+</section>
+<section id="miscellaneous">
+<h3>miscellaneous<a class="headerlink" href="#miscellaneous" title="Link to this heading"></a></h3>
+<p>This directory should contain files that do not fit into any of the other categories (e.g., GROMACS .ndx files).</p>
+</section>
+<section id="reference-coordinates">
+<h3>reference-coordinates<a class="headerlink" href="#reference-coordinates" title="Link to this heading"></a></h3>
+<p>Reference coordinates for the simulation run (or other coordinate files which do not meet the criteria for input or output coordinates).</p>
+</section>
+<section id="topology">
+<h3>topology<a class="headerlink" href="#topology" title="Link to this heading"></a></h3>
+<p>Topology files for the simulation run.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>At least one topology file must be provided for a dataset to be included in the ACSC database.</p>
+</div>
+</section>
+<section id="trajectory">
+<h3>trajectory<a class="headerlink" href="#trajectory" title="Link to this heading"></a></h3>
+<p>Coordinate trajectory files for the simulation run (or segments thereof, in the case of continuation runs).</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="configuring-csct.html" class="btn btn-neutral float-left" title="Configuring csc-tools" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="dataset-metadata.html" class="btn btn-neutral float-right" title="Structuring Metadata" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, ACSC.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
